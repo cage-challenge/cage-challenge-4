@@ -1,0 +1,18 @@
+This folder contains a series of Docker Image files. Building a file will install CybORG and its prerequisites on the version of Python specified in the filename. Running the resulting container will run the tests in the sim_test folder to check compatibility with the specified version of Python.
+
+The docker-compose.yaml file allows us to build and run all the tests simultaneously using docker-compose. You can do this as follows:
+
+Step 1): Ensure Docker and Docker Compose are installed:
+	sudo apt install docker.io docker-compose
+
+Step 2): Ensure you are in the test_python directory:
+	cd path/to/CybORG/CybORG/Tests/test_python
+
+Step 3): Use Docker Compose to build all the images:
+	sudo docker compose build
+
+Step 4): From the test_python directory run docker compose. It will blur all the tests together.
+	sudo docker-compose up
+
+Step 5): Once its all done, clean up by taking down the images.
+	sudo docker-compose down

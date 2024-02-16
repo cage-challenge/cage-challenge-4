@@ -1,0 +1,37 @@
+# Python
+typing_extensions==4.9.0
+pytest==8.0.0
+pytest-mock==3.12.0
+PyYAML==6.0.1
+
+# Gym Libraries
+gym==0.26.2
+gymnasium==0.28.1
+
+# RLlib
+ray[rllib]
+lz4==4.3.3
+
+# Stable Baselines
+pettingzoo==1.24.3
+sb3-contrib==2.2.1
+
+# Utilities
+prettytable==3.9.0
+matplotlib==3.8.2
+networkx==3.2.1
+numpy==1.26.4
+torch==2.2.0
+
+# Logging
+paramiko==3.4.0
+sshtunnel==0.4.0
+
+# Tensorboard
+tensorboard==2.15.2
+tensorboard-data-server==0.7.2
+tensorboardX==2.6.2.2
+
+# GUI
+pygame==2.5.2
+pygame-gui==0.6.9

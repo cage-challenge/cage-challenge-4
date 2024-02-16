@@ -1,0 +1,21 @@
+services:
+  python_3.8:
+    image: python_3.8
+    build:
+        context: ../../../
+        dockerfile: CybORG/Tests/test_python/python_3.8
+  python_3.9:
+    image: python_3.9
+    build:
+        context: ../../../
+        dockerfile: CybORG/Tests/test_python/python_3.9
+  python_3.10:
+    image: python_3.10
+    build:
+        context: ../../../
+        dockerfile: CybORG/Tests/test_python/python_3.10
+  python_3.11:
+    image: python_3.11
+    build:
+        context: ../../../
+        dockerfile: CybORG/Tests/test_python/python_3.11

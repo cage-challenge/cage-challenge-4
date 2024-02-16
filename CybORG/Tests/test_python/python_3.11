@@ -1,0 +1,9 @@
+FROM python:3.11
+
+COPY . ./CybORG
+
+WORKDIR ./CybORG
+
+RUN pip install -e .
+
+ENTRYPOINT ["pytest", "./CybORG/Tests/test_sim"]

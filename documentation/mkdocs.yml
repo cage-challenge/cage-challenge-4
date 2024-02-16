@@ -1,0 +1,203 @@
+site_name: CAGE Challenge 4
+
+nav:
+  - Home: index.md
+  - Challenge Details: pages/README.md
+  - Tutorials: 
+    - CC4 Tutorials Introduction: pages/how-to-guides.md
+    - Tutorial 1 - Getting Started:
+      - Installation Instructions: pages/tutorials/01_Getting_Started/1_Introduction.md
+      - Getting Started With CybORG: pages/tutorials/01_Getting_Started/2_Getting_Started.md
+      - Training RLlib Agents: pages/tutorials/01_Getting_Started/3_Training_Agents.md
+    - Tutorial 2 - Looking Around:
+      - Observations: pages/tutorials/02_Looking_Around/1_Observations.md
+      - Agents: pages/tutorials/02_Looking_Around/2_Agents.md
+      - Wrappers: pages/tutorials/02_Looking_Around/3_Wrappers.md
+      - Visualisation: pages/tutorials/02_Looking_Around/4_Visualisation.md
+      - Debugging Tools: pages/tutorials/02_Looking_Around/5_Debugging_Tools.md
+    - Tutorial 3 - Understanding Actions: 
+      - The Action Space: pages/tutorials/03_Actions/A_Understanding_Actions/1_Action_Space.md
+      - Taking an Action: pages/tutorials/03_Actions/A_Understanding_Actions/2_Taking_an_Action.md
+      - Sleep Action: pages/tutorials/03_Actions/A_Understanding_Actions/3_Sleep.md
+      - Invalid Actions: pages/tutorials/03_Actions/A_Understanding_Actions/4_Invalid_Actions.md
+    - Tutorial 4 - Blue Actions Walkthrough:
+      - Monitor: pages/tutorials/03_Actions/B_Blue_Actions/1_Monitor.md
+      - Analyse: pages/tutorials/03_Actions/B_Blue_Actions/2_Analyse.md
+      - DeployDecoy: pages/tutorials/03_Actions/B_Blue_Actions/3_Decoy.md
+      - Remove: pages/tutorials/03_Actions/B_Blue_Actions/4_Remove.md
+      - Restore: pages/tutorials/03_Actions/B_Blue_Actions/5_Restore.md
+      - Control Traffic: pages/tutorials/03_Actions/B_Blue_Actions/6_Control_Traffic.md
+    - Tutorial 5 - Red Actions Walkthrough:
+      - Discover Remote Systems: pages/tutorials/03_Actions/C_Red_Actions/1_Discover_Remote_Systems.md
+      - Service Discovery: pages/tutorials/03_Actions/C_Red_Actions/2_Service_Discovery.md
+      - Discover Deception: pages/tutorials/03_Actions/C_Red_Actions/3_Discover_Deception.md
+      - Exploit Remote Service: pages/tutorials/03_Actions/C_Red_Actions/4_Exploit_Remote_Service.md
+      - Privilege Escalate: pages/tutorials/03_Actions/C_Red_Actions/5_Privilege_Escalate.md
+      - Degrade Services: pages/tutorials/03_Actions/C_Red_Actions/6_Degrade_Services.md
+      - Impact: pages/tutorials/03_Actions/C_Red_Actions/7_Impact.md
+      - Withdraw: pages/tutorials/03_Actions/C_Red_Actions/8_Withdraw.md
+  - Reference:
+    - Section Overview: pages/reference/reference.md
+    - Environment:
+      - Scenario Creation:
+        - EnterpriseScenarioGenerator: pages/reference/environment/scenario_creation/enterprise_scenario_generator.md
+        - ScenarioGenerator: pages/reference/environment/scenario_creation/scenario_generator.md
+        - Scenario: pages/reference/environment/scenario_creation/scenario.md
+        - ScenarioAgent: pages/reference/environment/scenario_creation/scenario_agent.md
+      - Internal Objects:
+        - CybORG (class): pages/reference/environment/internal_objs/cyborg_class.md
+        - SimulationController: pages/reference/environment/internal_objs/sim_controller.md
+        - State: pages/reference/environment/internal_objs/state_class.md
+        - AgentInterface: pages/reference/environment/internal_objs/agent_interface.md
+        - ActionSpace: pages/reference/environment/outputs_and_rewards/action_space.md
+      - Rewards:
+        - RewardCalculator: pages/reference/environment/outputs_and_rewards/reward_calculator.md
+        - BlueRewardMachine: pages/reference/environment/outputs_and_rewards/blue_reward_machine.md
+      - Entities:
+        - Entity: pages/reference/hosts_and_networking/entity.md
+        - Host: pages/reference/hosts_and_networking/host.md
+        - Host Alerts: pages/reference/hosts_and_networking/host_alerts.md
+        - Service: pages/reference/hosts_and_networking/service.md
+        - Session: pages/reference/environment/internal_objs/session.md
+        - File: pages/reference/hosts_and_networking/file.md
+        - Interface: pages/reference/hosts_and_networking/interface.md
+        - User: pages/reference/hosts_and_networking/user.md
+        - Process: pages/reference/hosts_and_networking/process.md
+        - Subnet: pages/reference/hosts_and_networking/subnet.md
+    - Outputs and Wrappers:
+      - Environmental Outputs:
+        - Observation: pages/reference/environment/outputs_and_rewards/observation.md
+        - ObservationSet: pages/reference/environment/outputs_and_rewards/obs_set.md
+        - Results: pages/reference/environment/outputs_and_rewards/results.md
+      - Wrappers:
+        - RLlib Wrapper: pages/reference/wrappers/EnterpriseMAE.md
+        - Visualisation Wrapper: pages/reference/wrappers/VisualiseRedExpansion.md
+        - TrueStateWrapper: pages/reference/wrappers/TrueStateWrapper.md
+        - Blue Fixed Action Wrapper: pages/reference/wrappers/BlueFixedActionWrapper.md
+        - Blue Flat Wrapper: pages/reference/wrappers/BlueFlatWrapper.md
+    - Agents and Actions:
+      - Base Classes: 
+        - Base Agent: pages/reference/agents/base_agent.md
+        - Action: pages/reference/actions/base_action.md
+        - LocalAction: pages/reference/actions/local_action.md
+        - RemoteAction: pages/reference/actions/remote_action.md
+      - Red Agents: 
+        - Red Overview: pages/reference/agents/red_overview.md
+        - Red Agents: 
+          - DiscoveryFSRed: pages/reference/agents/DiscoveryFSRed.md
+          - LinearAgent: pages/reference/agents/LinearAgent.md
+          - FiniteStateRedAgent: pages/reference/agents/FiniteStateRedAgent.md
+          - RandomSelectRedAgent: pages/reference/agents/RandomSelectRedAgent.md
+          - VerboseFSRed: pages/reference/agents/VerboseFSRed.md
+        - Red Actions: 
+          - Discover Remote Systems: pages/reference/actions/red_actions/discover_remote_systems.md
+          - Service Discovery:  pages/reference/actions/red_actions/discover_network_services.md
+          - Exploit Remote Service: pages/reference/actions/red_actions/exploit_remote_service.md
+          - Privilege Escalate: pages/reference/actions/red_actions/privilege_escalate.md
+          - Discover Deception: pages/reference/actions/red_actions/detect_decoy.md
+          - Degrade Services: pages/reference/actions/red_actions/degrade_services.md
+          - Impact: pages/reference/actions/red_actions/impact.md
+          - Withdraw: pages/reference/actions/red_actions/withdraw.md
+      - Green Agents: 
+        - Green Agents:
+          - EnterpriseGreenAgent: pages/reference/agents/green_agents.md
+        - Green Actions: 
+          - Access Service: pages/reference/actions/green_actions/access_service.md
+          - Local Work: pages/reference/actions/green_actions/local_work.md
+          - Phishing Email (subaction): pages/reference/actions/green_actions/phishing_email.md
+      - Blue Agents: 
+        - Blue Agents: pages/reference/agents/blue_agents.md
+        - Blue Actions: 
+          - Monitor: pages/reference/actions/blue_actions/monitor.md
+          - Analyse: pages/reference/actions/blue_actions/analyse.md
+          - DeployDecoy: pages/reference/actions/blue_actions/decoy.md
+          - Remove: pages/reference/actions/blue_actions/remove.md
+          - Restore: pages/reference/actions/blue_actions/restore.md
+          - BlockTrafficZone: pages/reference/actions/blue_actions/block.md
+          - AllowTrafficZone: pages/reference/actions/blue_actions/allow.md
+      
+  - About TTCP CAGE: pages/about_us.md
+
+repo_url: https://github.com/cage-challenge/cage-challenge-4
+
+theme: 
+  name: material
+  favicon: assets/CAGE-Logo-small.png
+  logo: assets/CAGE-Logo-small.png
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.annotation
+    - content.code.copy
+    - footnotes
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle: 
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: indigo
+      accent: orange
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: orange
+      accent: indigo
+  icon: 
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/cage-challenge/cage-challenge-4
+      name: cc3 on GitHub
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.betterem
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences 
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - md_in_html
+  - toc:
+      toc_depth: 3
+
+plugins:
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [..]
+          options:
+            show_source: false
+            show_root_heading: true
+            heading_level: 1
+            show_category_heading: true
+            docstring_section_style: table
+            docstring_style: "google"
+            separate_signature: true
+            show_signature_annotations: true
+            show_if_no_docstring: false
+
+
+copyright: Copyright &copy; 2023 TTCP CAGE
