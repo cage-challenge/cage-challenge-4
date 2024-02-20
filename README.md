@@ -185,7 +185,7 @@ Please see [the Installation Instruction guide](/documentation/docs/pages/tutori
 
 ## How to submit responses
 
-Submissions are made to the [Codalabs webpage (add link)](#) which will automatically evaluate your agent and rank them on the leaderboard. Users will be required to make a Codalabs account in order to submit their agents. Users will then need to go to the 'Participate' tab, click on the 'Submit' section, and then upload their submission.zip file. After waiting some time (depends on how fast your agent is) your result will be automatically uploaded to the leaderboard.
+Submissions are made to the [Codalabs webpage](https://codalab.lisn.upsaclay.fr/competitions/17672) which will automatically evaluate your agent and rank them on the leaderboard. Users will be required to make a Codalabs account in order to submit their agents. Users will then need to go to the 'Participate' tab, click on the 'Submit' section, and then upload their submission.zip file. After waiting some time (depends on how fast your agent is) your result will be automatically uploaded to the leaderboard.
 
 For detailed instructions regarding how to evaluate and submit your agents please refer to the README.md located in the Cyborg/Evaluation folder.
 
@@ -237,7 +237,7 @@ The challenge software can be referenced as:
 ```
 
 ## Evaluation
-A leaderboard for submissions will be maintained on Codalabs throughout the challenge's time frame.
+A leaderboard for submissions will be maintained on [Codalabs](https://codalab.lisn.upsaclay.fr/competitions/17672) throughout the challenge's time frame.
 
 The `evaluation.py` file is designed to provide a standardised evaluation for an agent, which will be used in the Codalabs validation process. Each blue agent will be evaluated against the `FiniteStateRedAgent` in 100 randomised episodes, where each episode is 500 timesteps long.
 
@@ -249,7 +249,7 @@ If running locally, information about the agent's actions, observations, mean re
 
 - **29 Mar 2024 23:59 (UTC):** Development phase ends. Competition phase begins. During the comptetition phase, unless it is absolutely necessary, we will not be changing the code base, as this allows participants enough time to train their agents on a constant environment.
 
-- **10 May 2024 23:59 (UTC):** Competition phase ends. Final results announced on Codalabs leaderboard.
+- **10 May 2024 23:59 (UTC):** Competition phase ends. Final results announced on [Codalabs](https://codalab.lisn.upsaclay.fr/competitions/17672) leaderboard.
 
 ## Appendix A – Action sets
 
