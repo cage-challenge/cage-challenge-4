@@ -245,9 +245,9 @@ If running locally, information about the agent's actions, observations, mean re
 
 ## Important dates
 
-- **16 Feb 2024:** Challenge 4 released. Development phase begins.
+- **20 Feb 2024:** Challenge 4 released. Development phase begins. During the development phase, we will be debugging any unexpectant issues that may be found by the participants. Please ensure that you watch the repo so that you're notified if any changes are required.
 
-- **29 Mar 2024 23:59 (UTC):** Development phase ends. Competition phase begins.
+- **29 Mar 2024 23:59 (UTC):** Development phase ends. Competition phase begins. During the comptetition phase, unless it is absolutely necessary, we will not be changing the code base, as this allows participants enough time to train their agents on a constant environment.
 
 - **10 May 2024 23:59 (UTC):** Competition phase ends. Final results announced on Codalabs leaderboard.
 
