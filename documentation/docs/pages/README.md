@@ -5,7 +5,6 @@ hide:
 
 # TTCP CAGE Challenge 4: Challenge Details
 
-![TTCP-Logo](/assets/TTCP-Logo-small.png)
 ![Cage-Logo](/assets/CAGE-Logo-small.png)
 
 ## Introduction
