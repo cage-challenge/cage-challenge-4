@@ -1,0 +1,3924 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../5_Privilege_Escalate/">
+      
+      
+        <link rel="next" href="../7_Impact/">
+      
+      
+      <link rel="icon" href="../../../../../assets/CAGE-Logo-small.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.7">
+    
+    
+      
+        <title>Degrade Services - CAGE Challenge 4</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.f2e4d321.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#degrade-services" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="CAGE Challenge 4" class="md-header__button md-logo" aria-label="CAGE Challenge 4" data-md-component="logo">
+      
+  <img src="../../../../../assets/CAGE-Logo-small.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CAGE Challenge 4
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Degrade Services
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="orange"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="orange" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cage-challenge/cage-challenge-4" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../" class="md-tabs__link">
+        
+  
+    
+  
+  Challenge Details
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../how-to-guides/" class="md-tabs__link">
+          
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../reference/reference/" class="md-tabs__link">
+          
+  
+  Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../about_us/" class="md-tabs__link">
+        
+  
+    
+  
+  About Us
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="CAGE Challenge 4" class="md-nav__button md-logo" aria-label="CAGE Challenge 4" data-md-component="logo">
+      
+  <img src="../../../../../assets/CAGE-Logo-small.png" alt="logo">
+
+    </a>
+    CAGE Challenge 4
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cage-challenge/cage-challenge-4" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Challenge Details
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorials
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../how-to-guides/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CC4 Tutorials Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorial 1 - Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial 1 - Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01_Getting_Started/1_Introduction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Installation Instructions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01_Getting_Started/2_Getting_Started/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started With CybORG
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../01_Getting_Started/3_Training_Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Training RLlib Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorial 2 - Looking Around
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial 2 - Looking Around
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02_Looking_Around/1_Observations/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Observations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02_Looking_Around/2_Agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02_Looking_Around/3_Wrappers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wrappers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02_Looking_Around/4_Visualisation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualisation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../02_Looking_Around/5_Debugging_Tools/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debugging Tools
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorial 3 - Understanding Actions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial 3 - Understanding Actions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../A_Understanding_Actions/1_Action_Space/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    The Action Space
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../A_Understanding_Actions/2_Taking_an_Action/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Taking an Action
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../A_Understanding_Actions/3_Sleep/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sleep Action
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../A_Understanding_Actions/4_Invalid_Actions/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Invalid Actions
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorial 4 - Blue Actions Walkthrough
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial 4 - Blue Actions Walkthrough
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../B_Blue_Actions/1_Monitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../B_Blue_Actions/2_Analyse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Analyse
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../B_Blue_Actions/3_Decoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DeployDecoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../B_Blue_Actions/4_Remove/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remove
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../B_Blue_Actions/5_Restore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restore
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../B_Blue_Actions/6_Control_Traffic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Control Traffic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Tutorial 5 - Red Actions Walkthrough
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorial 5 - Red Actions Walkthrough
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Discover_Remote_Systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Discover Remote Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_Service_Discovery/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Service Discovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_Discover_Deception/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Discover Deception
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_Exploit_Remote_Service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploit Remote Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_Privilege_Escalate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Privilege Escalate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Degrade Services
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Degrade Services
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#red-agent-preamble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Red Agent Preamble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#degrade-services_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Degrade Services
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_Impact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Impact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8_Withdraw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Withdraw
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/reference/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Section Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Environment
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Environment
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_1" id="__nav_4_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Scenario Creation
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            Scenario Creation
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/scenario_creation/enterprise_scenario_generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EnterpriseScenarioGenerator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/scenario_creation/scenario_generator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ScenarioGenerator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/scenario_creation/scenario/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scenario
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/scenario_creation/scenario_agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ScenarioAgent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_2" id="__nav_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Internal Objects
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Internal Objects
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/internal_objs/cyborg_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CybORG (class)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/internal_objs/sim_controller/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SimulationController
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/internal_objs/state_class/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    State
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/internal_objs/agent_interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AgentInterface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/outputs_and_rewards/action_space/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ActionSpace
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_3" id="__nav_4_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Rewards
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Rewards
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/outputs_and_rewards/reward_calculator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RewardCalculator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/outputs_and_rewards/blue_reward_machine/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlueRewardMachine
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2_4" id="__nav_4_2_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Entities
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entities
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/entity/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Entity
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/host/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Host
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/host_alerts/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Host Alerts
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/internal_objs/session/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Session
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/file/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/interface/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Interface
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/user/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/process/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Process
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/hosts_and_networking/subnet/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Subnet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Outputs and Wrappers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Outputs and Wrappers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_1" id="__nav_4_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Environmental Outputs
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Environmental Outputs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/outputs_and_rewards/observation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Observation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/outputs_and_rewards/obs_set/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ObservationSet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/environment/outputs_and_rewards/results/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Results
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3_2" id="__nav_4_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Wrappers
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Wrappers
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/wrappers/EnterpriseMAE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RLlib Wrapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/wrappers/VisualiseRedExpansion/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Visualisation Wrapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/wrappers/TrueStateWrapper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TrueStateWrapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/wrappers/BlueFixedActionWrapper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blue Fixed Action Wrapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/wrappers/BlueFlatWrapper/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blue Flat Wrapper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Agents and Actions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Agents and Actions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_1" id="__nav_4_4_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Base Classes
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            Base Classes
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/base_agent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Base Agent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/base_action/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Action
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/local_action/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LocalAction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/remote_action/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RemoteAction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2" id="__nav_4_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Red Agents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Red Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/red_overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Red Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2_2" id="__nav_4_4_2_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Red Agents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            Red Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/DiscoveryFSRed/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DiscoveryFSRed
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/LinearAgent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LinearAgent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/FiniteStateRedAgent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FiniteStateRedAgent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/RandomSelectRedAgent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RandomSelectRedAgent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/VerboseFSRed/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VerboseFSRed
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_2_3" id="__nav_4_4_2_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Red Actions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Red Actions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/discover_remote_systems/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Discover Remote Systems
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/discover_network_services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Service Discovery
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/exploit_remote_service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Exploit Remote Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/privilege_escalate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Privilege Escalate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/detect_decoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Discover Deception
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/degrade_services/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Degrade Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/impact/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Impact
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/red_actions/withdraw/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Withdraw
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3" id="__nav_4_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Green Agents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Green Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3_1" id="__nav_4_4_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Green Agents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Green Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/green_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EnterpriseGreenAgent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_3_2" id="__nav_4_4_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Green Actions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Green Actions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/green_actions/access_service/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Service
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/green_actions/local_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Local Work
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/green_actions/phishing_email/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Phishing Email (subaction)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4" id="__nav_4_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blue Agents
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Blue Agents
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/agents/blue_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Blue Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4_4_2" id="__nav_4_4_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Blue Actions
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_4_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blue Actions
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/monitor/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/analyse/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Analyse
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/decoy/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DeployDecoy
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/remove/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Remove
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/restore/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restore
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/block/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BlockTrafficZone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference/actions/blue_actions/allow/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AllowTrafficZone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../about_us/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    About Us
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#red-agent-preamble" class="md-nav__link">
+    <span class="md-ellipsis">
+      Red Agent Preamble
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#degrade-services_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Degrade Services
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="degrade-services">Degrade Services</h1>
+<p><code>DegradeServices</code> attempts to degrade services used by green in the mission. This is achieved by lowering the reliability of each service on the host, making a green agent's local work less likely to succeed. The more a service is degraded, the less likely green is to succeed in performing their local work for the mission.</p>
+<p>This action has a few other actions as prerequisities to run successfully. This tutorial will go over them briefly, but for more information on them, check their individual tutorial pages. </p>
+<h2 id="red-agent-preamble">Red Agent Preamble</h2>
+<p>Here we will first find the known subnet, discover the hosts present on that subnet, choose a host and discover its services, exploit a remote service on that host to gain a user shell on it, privilege escalate that shell to root, then finally degrade services.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Step 0: Initial Observation</label><label for="__tabbed_1_2">Step 1: Discover Remote Systems</label><label for="__tabbed_1_3">Step 2: Service Discovery</label><label for="__tabbed_1_4">Step 3: Exploit Service</label><label for="__tabbed_1_5">Step 4: Privilege Escalate Shell</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>First, we check Red's initial observations to find the subnet Red starts the scenario knowing.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">red_degrade_services.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="kn">from</span> <span class="nn">ipaddress</span> <span class="kn">import</span> <span class="n">IPv4Network</span><span class="p">,</span> <span class="n">IPv4Address</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="kn">from</span> <span class="nn">CybORG</span> <span class="kn">import</span> <span class="n">CybORG</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="kn">from</span> <span class="nn">CybORG.Simulator.Scenarios</span> <span class="kn">import</span> <span class="n">EnterpriseScenarioGenerator</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="kn">from</span> <span class="nn">CybORG.Agents</span> <span class="kn">import</span> <span class="n">SleepAgent</span><span class="p">,</span> <span class="n">FiniteStateRedAgent</span><span class="p">,</span> <span class="n">EnterpriseGreenAgent</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="kn">from</span> <span class="nn">CybORG.Simulator.Actions</span> <span class="kn">import</span> <span class="n">DiscoverRemoteSystems</span><span class="p">,</span> <span class="n">AggressiveServiceDiscovery</span><span class="p">,</span> <span class="n">Sleep</span><span class="p">,</span> <span class="n">PrivilegeEscalate</span><span class="p">,</span> <span class="n">DegradeServices</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="kn">from</span> <span class="nn">CybORG.Simulator.Actions.ScenarioActions.EnterpriseActions</span> <span class="kn">import</span> <span class="n">ExploitRemoteService_cc4</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="n">sg</span> <span class="o">=</span> <span class="n">EnterpriseScenarioGenerator</span><span class="p">(</span><span class="n">blue_agent_class</span><span class="o">=</span><span class="n">SleepAgent</span><span class="p">,</span> 
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a>                                <span class="n">green_agent_class</span><span class="o">=</span><span class="n">EnterpriseGreenAgent</span><span class="p">,</span> 
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a>                                <span class="n">red_agent_class</span><span class="o">=</span><span class="n">FiniteStateRedAgent</span><span class="p">,</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>                                <span class="n">steps</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="n">cyborg</span> <span class="o">=</span> <span class="n">CybORG</span><span class="p">(</span><span class="n">scenario_generator</span><span class="o">=</span><span class="n">sg</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="n">red_agent_name</span> <span class="o">=</span> <span class="s1">&#39;red_agent_0&#39;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="n">reset</span> <span class="o">=</span> <span class="n">cyborg</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="n">initial_obs</span> <span class="o">=</span> <span class="n">reset</span><span class="o">.</span><span class="n">observation</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="n">pprint</span><span class="p">(</span><span class="n">initial_obs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<details class="quote" open="open">
+<summary>Code Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>{&#39;contractor_network_subnet_user_host_4&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                                                        &#39;interface_name&#39;: &#39;eth0&#39;,
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                                        &#39;Processes&#39;: [{&#39;PID&#39;: 5753,
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                                                        &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                                        &#39;Sessions&#39;: [{&#39;PID&#39;: 5753,
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>                                                        &#39;Type&#39;: &lt;SessionType.RED_ABSTRACT_SESSION: 10&gt;,
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>                                                        &#39;session_id&#39;: 0,
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>                                                        &#39;timeout&#39;: 0,
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                                                        &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                                        &#39;System info&#39;: {&#39;Architecture&#39;: &lt;Architecture.x64: 2&gt;,
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                                                        &#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_4&#39;,
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>                                                        &#39;OSDistribution&#39;: &lt;OperatingSystemDistribution.KALI: 9&gt;,
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                                                        &#39;OSType&#39;: &lt;OperatingSystemType.LINUX: 3&gt;,
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                                                        &#39;OSVersion&#39;: &lt;OperatingSystemVersion.K2019_4: 11&gt;,
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                                                        &#39;position&#39;: array([0., 0.])},
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                                        &#39;User Info&#39;: [{&#39;Groups&#39;: [{&#39;GID&#39;: 0}],
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>                                                        &#39;username&#39;: &#39;root&#39;},
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>                                                        {&#39;Groups&#39;: [{&#39;GID&#39;: 1}],
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>                                                        &#39;username&#39;: &#39;user&#39;}]},
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>&#39;success&#39;: &lt;TernaryEnum.UNKNOWN: 2&gt;}
+</code></pre></div>
+</details>
+<p>Here, the subnet is <code>10.0.96.0/24</code>.</p>
+</div>
+<div class="tabbed-block">
+<p>We then execute <a href="../1_Discover_Remote_Systems/">DiscoverRemoteSystems</a> to discover the other hosts present on the subnet.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">red_degrade_services.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="n">action</span> <span class="o">=</span> <span class="n">DiscoverRemoteSystems</span><span class="p">(</span><span class="n">subnet</span><span class="o">=</span><span class="n">IPv4Network</span><span class="p">(</span><span class="s1">&#39;10.0.96.0/24&#39;</span><span class="p">),</span> <span class="n">session</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">)</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="n">results</span> <span class="o">=</span> <span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">)</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="n">obs</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">observation</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="n">pprint</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<details class="quote" open="open">
+<summary>Code Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>{&#39;10.0.96.108&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.108&#39;)}]},
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>&#39;10.0.96.119&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.119&#39;)}]},
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>&#39;10.0.96.172&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.172&#39;)}]},
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>&#39;10.0.96.177&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.177&#39;)}]},
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>&#39;10.0.96.211&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.211&#39;)}]},
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>&#39;10.0.96.252&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.252&#39;)}]},
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>&#39;10.0.96.253&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.253&#39;)}]},
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>&#39;10.0.96.254&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>                                &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.254&#39;)}]},
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>&#39;10.0.96.73&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>                            &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}]},
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>&#39;action&#39;: DiscoverRemoteSystems 10.0.96.0/24,
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>&#39;contractor_network_subnet_user_host_4&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>                                        &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_ABSTRACT_SESSION: 10&gt;,
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>                                                        &#39;session_id&#39;: 0,
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>                                                        &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>                                        &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_4&#39;}},
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>&#39;success&#39;: &lt;TernaryEnum.TRUE: 1&gt;}
+</code></pre></div>
+</details>
+<p>These are: <code>10.0.96.108</code>, <code>10.0.96.119</code>, <code>10.0.96.172</code>, <code>10.0.96.177</code>, <code>10.0.96.211</code>, <code>10.0.96.252</code>, <code>10.0.96.253</code>, <code>10.0.96.254</code>, and <code>10.0.96.73</code>.</p>
+</div>
+<div class="tabbed-block">
+<p>We then execute <a href="../2_Service_Discovery/">ServiceDiscovery</a> on a host for <code>ExploitRemoteService_cc4</code> to work. Here, we are using <code>AggressiveServiceDiscovery</code> as stealth is not important for this demonstration. We are investigating the host <code>10.0.96.108</code>, but this is an abitrary choice.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">red_degrade_services.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-24">24</a></span>
+<span class="normal"><a href="#__codelineno-4-25">25</a></span>
+<span class="normal"><a href="#__codelineno-4-26">26</a></span>
+<span class="normal"><a href="#__codelineno-4-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="n">action</span> <span class="o">=</span> <span class="n">AggressiveServiceDiscovery</span><span class="p">(</span><span class="n">session</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">ip_address</span><span class="o">=</span><span class="n">IPv4Address</span><span class="p">(</span><span class="s1">&#39;10.0.96.108&#39;</span><span class="p">))</span>
+<a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="n">results</span> <span class="o">=</span> <span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">)</span>
+<a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="n">obs</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">observation</span>
+<a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="n">pprint</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<details class="quote" open="open">
+<summary>Code Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>{&#39;10.0.96.108&#39;: {&#39;Interface&#39;: [{&#39;ip_address&#39;: IPv4Address(&#39;10.0.96.108&#39;)}],
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>                &#39;Processes&#39;: [{&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>                                                &#39;local_port&#39;: 22}]},
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>                            {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                                                &#39;local_port&#39;: 80}]},
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>                            {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>                                                &#39;local_port&#39;: 25}]},
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>                            {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>                                                &#39;local_port&#39;: 3390}]}]},
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>&#39;action&#39;: AggressiveServiceDiscovery 10.0.96.108,
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>&#39;contractor_network_subnet_user_host_4&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>                                        &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_ABSTRACT_SESSION: 10&gt;,
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>                                                        &#39;session_id&#39;: 0,
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>                                                        &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>                                        &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_4&#39;}},
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>&#39;success&#39;: &lt;TernaryEnum.TRUE: 1&gt;}
+</code></pre></div>
+</details>
+<p>The services are visible in the resulting observations within <code>10.0.96.108</code>, <code>Processes</code>. In this case, these are as follows:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>&#39;Processes&#39;: [{&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>                        &#39;local_port&#39;: 22}]},
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>                        &#39;local_port&#39;: 80}]},
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                        &#39;local_port&#39;: 25}]},
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>                        &#39;local_port&#39;: 3390}]}],
+</code></pre></div>
+Keep these in mind for later...</p>
+</div>
+<div class="tabbed-block">
+<p>Now, we run <a href="../4_Exploit_Remote_Service/">ExploitRemoteService_cc4</a> on <code>10.0.96.108</code> to gain a user shell on it.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">red_degrade_services.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-28">28</a></span>
+<span class="normal"><a href="#__codelineno-7-29">29</a></span>
+<span class="normal"><a href="#__codelineno-7-30">30</a></span>
+<span class="normal"><a href="#__codelineno-7-31">31</a></span>
+<span class="normal"><a href="#__codelineno-7-32">32</a></span>
+<span class="normal"><a href="#__codelineno-7-33">33</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-28" name="__codelineno-7-28"></a><span class="n">action</span> <span class="o">=</span> <span class="n">ExploitRemoteService_cc4</span><span class="p">(</span><span class="n">ip_address</span><span class="o">=</span><span class="n">IPv4Address</span><span class="p">(</span><span class="s1">&#39;10.0.96.108&#39;</span><span class="p">),</span> <span class="n">session</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">)</span>
+<a id="__codelineno-7-29" name="__codelineno-7-29"></a><span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">)</span>
+<a id="__codelineno-7-30" name="__codelineno-7-30"></a><span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">Sleep</span><span class="p">())</span>
+<a id="__codelineno-7-31" name="__codelineno-7-31"></a><span class="n">results</span> <span class="o">=</span> <span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">Sleep</span><span class="p">())</span>
+<a id="__codelineno-7-32" name="__codelineno-7-32"></a><span class="n">obs</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">observation</span>
+<a id="__codelineno-7-33" name="__codelineno-7-33"></a><span class="n">pprint</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<details class="quote" open="open">
+<summary>Code Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>{&#39;10.0.96.108&#39;: {&#39;Interface&#39;: [{&#39;ip_address&#39;: IPv4Address(&#39;10.0.96.108&#39;)}],
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>                &#39;Processes&#39;: [{&#39;Connections&#39;: [{&#39;Status&#39;: &lt;ProcessState.OPEN: 2&gt;,
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>                                                &#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>                                                &#39;local_port&#39;: 22}],
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>                                &#39;process_type&#39;: &lt;ProcessType.SSH: 2&gt;},
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>                            {&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>                                                &#39;local_port&#39;: 22,
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>                                                &#39;remote_address&#39;: IPv4Address(&#39;10.0.96.73&#39;),
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>                                                &#39;remote_port&#39;: 54893}],
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>                                &#39;process_type&#39;: &lt;ProcessType.SSH: 2&gt;}],
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>                &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.SSH: 2&gt;,
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>                            &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>                            &#39;session_id&#39;: 1,
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>                            &#39;username&#39;: &#39;user&#39;}],
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>                &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_5&#39;,
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>                                &#39;OSType&#39;: &lt;OperatingSystemType.LINUX: 3&gt;}},
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>&#39;10.0.96.73&#39;: {&#39;Interface&#39;: [{&#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>                &#39;Processes&#39;: [{&#39;Connections&#39;: [{&#39;local_address&#39;: IPv4Address(&#39;10.0.96.73&#39;),
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>                                                &#39;local_port&#39;: 54893,
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>                                                &#39;remote_address&#39;: IPv4Address(&#39;10.0.96.108&#39;),
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>                                                &#39;remote_port&#39;: 22}]}]},
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>&#39;action&#39;: ExploitRemoteService_cc4 10.0.96.108,
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>&#39;contractor_network_subnet_user_host_4&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>                                        &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_ABSTRACT_SESSION: 10&gt;,
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>                                                        &#39;session_id&#39;: 0,
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>                                                        &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>                                        &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_4&#39;}},
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>&#39;contractor_network_subnet_user_host_5&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.108&#39;)}],
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>                                        &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.SSH: 2&gt;,
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>                                                        &#39;session_id&#39;: 1,
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>                                                        &#39;username&#39;: &#39;user&#39;}],
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>                                        &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_5&#39;}},
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>&#39;success&#39;: &lt;TernaryEnum.TRUE: 1&gt;}
+</code></pre></div>
+</details>
+<p>The important takeaway from the results observation is <code>10.0.96.108</code>'s hostname: <code>contractor_network_subnet_user_host_5</code>.</p>
+</div>
+<div class="tabbed-block">
+<p>With the user shell acquired, we execute <a href="../5_Privilege_Escalate/">PrivilegeEscalate</a> on <code>contractor_network_subnet_user_host_5</code> to escalate the shell we have on it to root privileges.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">red_degrade_services.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-34">34</a></span>
+<span class="normal"><a href="#__codelineno-9-35">35</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-34" name="__codelineno-9-34"></a><span class="n">action</span> <span class="o">=</span> <span class="n">PrivilegeEscalate</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;contractor_network_subnet_user_host_5&#39;</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">)</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35"></a><span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<details class="quote" open="open">
+<summary>Code Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>{&#39;action&#39;: PrivilegeEscalate contractor_network_subnet_user_host_5,
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>&#39;contractor_network_subnet_user_host_4&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>                                        &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_ABSTRACT_SESSION: 10&gt;,
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>                                                        &#39;session_id&#39;: 0,
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>                                                        &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>                                        &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_4&#39;}},
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>&#39;contractor_network_subnet_user_host_5&#39;: {&#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>                                                        &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.108&#39;)}],
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>                                        &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_REVERSE_SHELL: 11&gt;,
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>                                                        &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>                                                        &#39;session_id&#39;: 1,
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>                                                        &#39;username&#39;: &#39;root&#39;}],
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>                                        &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_5&#39;}},
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>&#39;success&#39;: &lt;TernaryEnum.TRUE: 1&gt;}
+</code></pre></div>
+</details>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="degrade-services_1">Degrade Services</h2>
+<p>Finally, we can run <code>DegradeServices</code> on <code>contractor_network_subnet_user_host_5</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">red_degrade_services.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-36">36</a></span>
+<span class="normal"><a href="#__codelineno-11-37">37</a></span>
+<span class="normal"><a href="#__codelineno-11-38">38</a></span>
+<span class="normal"><a href="#__codelineno-11-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-36" name="__codelineno-11-36"></a><span class="n">action</span> <span class="o">=</span> <span class="n">DegradeServices</span><span class="p">(</span><span class="n">hostname</span><span class="o">=</span><span class="s1">&#39;contractor_network_subnet_user_host_5&#39;</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">)</span>
+<a id="__codelineno-11-37" name="__codelineno-11-37"></a><span class="n">results</span> <span class="o">=</span> <span class="n">cyborg</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">agent</span><span class="o">=</span><span class="n">red_agent_name</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">)</span>
+<a id="__codelineno-11-38" name="__codelineno-11-38"></a><span class="n">obs</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">observation</span>
+<a id="__codelineno-11-39" name="__codelineno-11-39"></a><span class="n">pprint</span><span class="p">(</span><span class="n">obs</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<details class="quote">
+<summary>Code Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>{&#39;action&#39;: DegradeServices contractor_network_subnet_user_host_5,
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>&#39;contractor_network_subnet_user_host_4&#39;: {
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    &#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>                    &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.73&#39;)}],
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_ABSTRACT_SESSION: 10&gt;,
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                    &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>                    &#39;session_id&#39;: 0,
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>                    &#39;username&#39;: &#39;ubuntu&#39;}],
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>    &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_4&#39;}},
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>&#39;contractor_network_subnet_user_host_5&#39;: {
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>    &#39;Interface&#39;: [{&#39;Subnet&#39;: IPv4Network(&#39;10.0.96.0/24&#39;),
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>                    &#39;ip_address&#39;: IPv4Address(&#39;10.0.96.108&#39;)}],
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    &#39;Processes&#39;: [{&#39;Connections&#39;: [{&#39;Transport Protocol&#39;: &lt;TransportProtocol.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>                                    &#39;local_address&#39;: IPv4Address(&#39;0.0.0.0&#39;),
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>                                    &#39;local_port&#39;: 22}],
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>                    &#39;Known Path&#39;: &lt;Path.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>                    &#39;Known Process&#39;: &lt;ProcessName.SSHD: 7&gt;,
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>                    &#39;PID&#39;: 3761,
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>                    &#39;Path&#39;: &#39;/ usr / &#39;
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>                            &#39;sbin&#39;,
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>                    &#39;process_name&#39;: &lt;ProcessName.SSHD: 7&gt;,
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>                    &#39;process_type&#39;: &lt;ProcessType.SSH: 2&gt;,
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>                    &#39;username&#39;: &#39;user&#39;},
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>                    {&#39;Connections&#39;: [{&#39;Transport Protocol&#39;: &lt;TransportProtocol.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>                                    &#39;local_address&#39;: IPv4Address(&#39;0.0.0.0&#39;),
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>                                    &#39;local_port&#39;: 80}],
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>                    &#39;Known Path&#39;: &lt;Path.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>                    &#39;Known Process&#39;: &lt;ProcessName.APACHE2: 13&gt;,
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>                    &#39;PID&#39;: 5783,
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>                    &#39;Path&#39;: &#39;/ usr / &#39;
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>                            &#39;sbin&#39;,
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>                    &#39;process_name&#39;: &lt;ProcessName.APACHE2: 13&gt;,
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>                    &#39;process_type&#39;: &lt;ProcessType.WEBSERVER: 7&gt;,
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>                    &#39;username&#39;: &#39;user&#39;},
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>                    {&#39;Connections&#39;: [{&#39;Transport Protocol&#39;: &lt;TransportProtocol.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>                                    &#39;local_address&#39;: IPv4Address(&#39;0.0.0.0&#39;),
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>                                    &#39;local_port&#39;: 25}],
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>                    &#39;Known Path&#39;: &lt;Path.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>                    &#39;Known Process&#39;: &lt;ProcessName.SMTP: 11&gt;,
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>                    &#39;PID&#39;: 6815,
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>                    &#39;Path&#39;: &#39;/ usr / &#39;
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>                            &#39;sbin&#39;,
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>                    &#39;Process Version&#39;: &lt;ProcessVersion.HARAKA_2_8_9: 8&gt;,
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>                    &#39;process_name&#39;: &lt;ProcessName.SMTP: 11&gt;,
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>                    &#39;process_type&#39;: &lt;ProcessType.SMTP: 5&gt;,
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>                    &#39;username&#39;: &#39;user&#39;},
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>                    {&#39;Connections&#39;: [{&#39;Transport Protocol&#39;: &lt;TransportProtocol.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>                                    &#39;local_address&#39;: IPv4Address(&#39;0.0.0.0&#39;),
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>                                    &#39;local_port&#39;: 3390}],
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>                    &#39;Known Path&#39;: &lt;Path.UNKNOWN: 1&gt;,
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a>                    &#39;Known Process&#39;: &lt;ProcessName.MYSQLD: 9&gt;,
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a>                    &#39;PID&#39;: 8372,
+<a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a>                    &#39;Path&#39;: &#39;/ usr / &#39;
+<a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a>                            &#39;sbin&#39;,
+<a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a>                    &#39;process_name&#39;: &lt;ProcessName.MYSQLD: 9&gt;,
+<a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a>                    &#39;process_type&#39;: &lt;ProcessType.MYSQL: 12&gt;,
+<a id="__codelineno-12-57" name="__codelineno-12-57" href="#__codelineno-12-57"></a>                    &#39;username&#39;: &#39;user&#39;}],
+<a id="__codelineno-12-58" name="__codelineno-12-58" href="#__codelineno-12-58"></a>    &#39;Sessions&#39;: [{&#39;Type&#39;: &lt;SessionType.RED_REVERSE_SHELL: 11&gt;,
+<a id="__codelineno-12-59" name="__codelineno-12-59" href="#__codelineno-12-59"></a>                    &#39;agent&#39;: &#39;red_agent_0&#39;,
+<a id="__codelineno-12-60" name="__codelineno-12-60" href="#__codelineno-12-60"></a>                    &#39;session_id&#39;: 1,
+<a id="__codelineno-12-61" name="__codelineno-12-61" href="#__codelineno-12-61"></a>                    &#39;username&#39;: &#39;root&#39;}],
+<a id="__codelineno-12-62" name="__codelineno-12-62" href="#__codelineno-12-62"></a>    &#39;System info&#39;: {&#39;Hostname&#39;: &#39;contractor_network_subnet_user_host_5&#39;}},
+<a id="__codelineno-12-63" name="__codelineno-12-63" href="#__codelineno-12-63"></a>&#39;success&#39;: &lt;TernaryEnum.TRUE: 1&gt;}
+</code></pre></div>
+</details>
+<p>This output is quite long, but in summary it tells us three things:</p>
+<ul>
+<li>The action <code>DegradeServices</code> ran.</li>
+<li>The action was executed successfully.</li>
+<li>All the processes listed on the host that the action was run on were degraded.</li>
+</ul>
+<p>While the observation space output does not directly tell red (or blue) how much each service has been degraded by, the rewards received when green fails their <a href="/pages/reference/actions/green_actions/local_work/"><code>GreenLocalWork</code></a> action should be taken as the indication of the 'health' of the host and how much the operation is being affected by red.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../5_Privilege_Escalate/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Privilege Escalate">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Privilege Escalate
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../7_Impact/" class="md-footer__link md-footer__link--next" aria-label="Next: Impact">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Impact
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2023 TTCP CAGE
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/cage-challenge/cage-challenge-4" target="_blank" rel="noopener" title="cc3 on GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "content.tabs.link", "content.code.annotation", "content.code.copy", "footnotes"], "search": "../../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.caa56a14.min.js"></script>
+      
+    
+  </body>
+</html>
