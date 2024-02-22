@@ -18,11 +18,12 @@ The challenges use the Cyber Operations Research Gym (CybORG) to provide a cyber
 2. Read through the CybORG README, also available on the 'Challenge Details' tab of the documentation.
 3. Read the [Tutorials](/pages/how-to-guides/) to get a better understanding of CybORG and how to train agents using it.
 4. Explore the [Reference](/pages/reference/reference/) section for more in-depth class explanations.
-5. Develop your agents!
+5. Develop your agent!
+6. Look at the [Codalabs webpage](https://codalab.lisn.upsaclay.fr/competitions/17672) for how to submit.
 
 ## Important Dates
 
-- **16 Feb 2024:** Challenge 4 released. Development phase begins.
+- **20 Feb 2024:** Challenge 4 released. Development phase begins.
 
 - **29 Mar 2024 23:59 (UTC):** Development phase ends. Competition phase begins.
 

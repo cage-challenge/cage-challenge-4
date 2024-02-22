@@ -116,7 +116,7 @@ nav:
           - BlockTrafficZone: pages/reference/actions/blue_actions/block.md
           - AllowTrafficZone: pages/reference/actions/blue_actions/allow.md
       
-  - About TTCP CAGE: pages/about_us.md
+  - About Us: pages/about_us.md
 
 repo_url: https://github.com/cage-challenge/cage-challenge-4
 

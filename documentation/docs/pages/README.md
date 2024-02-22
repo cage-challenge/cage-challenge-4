@@ -4,9 +4,6 @@ hide:
 ---
 
 # TTCP CAGE Challenge 4: Challenge Details
-
-![Cage-Logo](/assets/CAGE-Logo-small.png)
-
 ## Introduction
 
 The TTCP CAGE Challenges are a series of public challenges instigated to foster the development of autonomous cyber defensive agents. 
@@ -39,8 +36,7 @@ Each deployed network consists of two security zones: a restricted zone and an o
 In order to encourage the development of robust agents, the number of hosts in each security zone and their services will be randomised. Indeed, each zone will have between 1-6 servers and 3-10 user hosts. Each host and server will have a minimum of 1 service with a maximum of 5.
 
 <figure markdown>
-  <!-- ![CAGE Network Laydown](/assets/CAGE-Network-Diagram.png) -->
-  <img src="/assets/CAGE-Network-Diagram.png" alt="CC4 Network Diagram" width="750">
+  <img src="../assets/CAGE-Network-Diagram.png" alt="CC4 Network Diagram" width="750">
   <figcaption>Figure 1 - Network Laydown</figcaption>
 </figure>
 
@@ -51,8 +47,7 @@ Red team begins the operation with access to a random machine in the contractor 
 The red agents will each use a randomly selected strategy.
 
 <figure markdown>
-  <!-- ![CAGE Deployed Network A](/assets/CAGE-Deployed-Network-A.png) -->
-  <img src="/assets/CAGE-Deployed-Network-A.png" alt="CC4 Deployed Network A Diagram" width="500">
+  <img src="../assets/CAGE-Deployed-Network-A.png" alt="CC4 Deployed Network A Diagram" width="500">
   <figcaption>Figure 2 - Deployed Network A</figcaption>
 </figure>
 
@@ -95,7 +90,7 @@ Some defending agents have the capability to communicate 8-bit messages with eac
 |      **Internet**      |       1        |           1            |           1           |           0            |           1           |           0            |      1       |
 
 <figure markdown>
-  ![CAGE Phase 1 Connectivity Diagram](/assets/CAGE-Phase-1-Connectivity-Diagram.png)
+  ![CAGE Phase 1 Connectivity Diagram](../assets/CAGE-Phase-1-Connectivity-Diagram.png)
   <figcaption>Figure 3 - Phase 1 Connectivity Diagram</figcaption>
 </figure>
 
@@ -116,7 +111,7 @@ When mission A is active, Operational Zone A disconnects from all other networks
 |      **Internet**      |       1        |           1            |           0           |           0            |           1           |           0            |      1       |
 
 <figure markdown>
-  ![CAGE Phase 2a Connectivity Diagram](/assets/CAGE-Phase-2a-Connectivity-Diagram.png)
+  ![CAGE Phase 2a Connectivity Diagram](../assets/CAGE-Phase-2a-Connectivity-Diagram.png)
   <figcaption>Figure 4 - Phase 2a Connectivity Diagram</figcaption>
 </figure>
 
@@ -137,7 +132,7 @@ When mission B is active, Operational Zone B disconnects from all other networks
 |      **Internet**      |       1        |           1            |           1           |           0            |           0           |           0            |      1       |
 
 <figure markdown>
-  ![CAGE Phase 2b Connectivity Diagram](/assets/CAGE-Phase-2b-Connectivity-Diagram.png)
+  ![CAGE Phase 2b Connectivity Diagram](../assets/CAGE-Phase-2b-Connectivity-Diagram.png)
   <figcaption>Figure 5 - Phase 2b Connectivity Diagram</figcaption>
 </figure>
 
