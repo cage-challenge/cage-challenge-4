@@ -1,4 +1,5 @@
 # TTCP CAGE Challenge 4: Challenge Details
+![TTCP-Logo](/documentation/docs/assets/TTCP-Logo-small.png)
 ![Cage-Logo](/documentation/docs/assets/CAGE-Logo-small.png)
 
 ## Introduction
