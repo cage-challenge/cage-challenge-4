@@ -174,10 +174,7 @@ class BlueFixedActionWrapper(BaseWrapper):
         }
 
         terminated = {agent: done for agent, done in dones.items() if "blue" in agent}
-        terminated["__all__"] = False
-
         truncated = {agent: done for agent, done in dones.items() if "blue" in agent}
-        truncated["__all__"] = self.env.environment_controller.determine_done()
 
         info = {
             a: {"action_mask": self._action_space[a]["mask"]}

@@ -13,7 +13,7 @@ class EnterpriseMAE(BlueEnterpriseWrapper, MultiAgentEnv):
     Creates a vector output for a neural network by directly pulling
     information out of the state object.
     """
-    
+
     def step(
         self,
         action_dict: dict[str, Any] | None = None,
@@ -64,6 +64,9 @@ class EnterpriseMAE(BlueEnterpriseWrapper, MultiAgentEnv):
 
             info (dict[str, dict]): Forwarded from BlueFixedActionWrapper.
         """
-        return super(BlueEnterpriseWrapper, self).step(
+        obs, rew, terminated, truncated, info = super(BlueEnterpriseWrapper, self).step(
             actions=action_dict, messages=messages
         )
+        terminated["__all__"] = False
+        truncated["__all__"] = self.env.environment_controller.determine_done()
+        return obs, rew, terminated, truncated, info
