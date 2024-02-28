@@ -149,7 +149,8 @@ class BlueFixedActionWrapper(BaseWrapper):
 
         messages = {} if messages is None else messages
         messages = {
-            agent: messages.get(agent, EMPTY_MESSAGE) for agent in self.possible_agents
+            agent: messages.get(agent, EMPTY_MESSAGE).astype(bool)
+            for agent in self.possible_agents
         }
 
         obs, rews, dones, info = self.env.parallel_step(

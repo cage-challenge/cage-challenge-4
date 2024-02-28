@@ -105,22 +105,22 @@ pprint(green_actions)
 There are 3 actions that an EnterpriseGreenAgent can take:
 
 - [Sleep](../../03_Actions/A_Understanding_Actions/3_Sleep/)
-- [GreenLocalWork](/pages/reference/actions/green_actions/local_work/)
-- [GreenAccessService](/pages/reference/actions/green_actions/access_service/)
+- [GreenLocalWork](../../../reference/actions/green_actions/local_work/)
+- [GreenAccessService](../../../reference/actions/green_actions/access_service/)
 
 The string output of GreenLocalWork includes the IP address of the host where the local work is taking place, and the string output of GreenAccessService includes the destination IP address and port number.
 
-During GreenLocalWork, another subaction called [PhishingEmail](/pages/reference/actions/green_actions/phishing_email/) can also occur. However as a sub action this will not appear on the action list.
+During GreenLocalWork, another subaction called [PhishingEmail](../../../reference/actions/green_actions/phishing_email/) can also occur. However as a sub action this will not appear on the action list.
 
 
 ## Red Agents
-CC4 has two main types of heuristic red agents: [RandomSelectRedAgent](/pages/reference/agents/RandomSelectRedAgent/), and [FiniteStateRedAgent](/pages/reference/agents/FiniteStateRedAgent/).
+CC4 has two main types of heuristic red agents: [RandomSelectRedAgent](../../../reference/agents/RandomSelectRedAgent/), and [FiniteStateRedAgent](../../../reference/agents/FiniteStateRedAgent/).
 
 
 ### RandomSelectRedAgent
 This red agent does what it says on the tin, 'randomly selects'. 
 
-For red agents, there are a [10 possible actions](/pages/reference/agents/red_overview/#red-agent-actions), and this agent picks a random valid one from the list. Below is an example action list output from a RandomSelectRedAgent.
+For red agents, there are a [10 possible actions](../../../reference/agents/red_overview/#red-agent-actions), and this agent picks a random valid one from the list. Below is an example action list output from a RandomSelectRedAgent.
 
 ```python title="example_random_red.py" linenums="1"
 from pprint import pprint
@@ -202,7 +202,7 @@ To stop the agent trying to withdraw itself, you can set `disable_withdraw` to `
 
 
 ### FiniteStateRedAgent
-This section will cover how to use the FiniteStateRedAgent. If you want more information about its [design](/pages/reference/agents/red_overview/#finite-state-machine-based-red-agents) or the ability to [make variants](/pages/reference/agents/red_overview/#creating-variant-fsm-red-agents) of this agent, please use the links provided.
+This section will cover how to use the FiniteStateRedAgent. If you want more information about its [design](../../../reference/agents/red_overview/#finite-state-machine-based-red-agents) or the ability to [make variants](../../../reference/agents/red_overview/#creating-variant-fsm-red-agents) of this agent, please use the links provided.
 
 The code to show the FiniteStateRedAgent actions is almost identical to `example_random_red.py` for the RandomSelectRedAgent, with only the agent name and number of steps being changed.
 
@@ -258,7 +258,7 @@ The resultant actions have a more logical sequence than the RandomSelectRedAgent
 While the RandomSelectRedAgent should be easy to defeat or mitigate against, the FiniteStateRedAgent and its variants shold be a more difficult challenge.
 
 #### Agent Options
-There are a large amount of possible agent modifications for this agent; so many that a [FSM variant template](/pages/reference/agents/red_overview/#creating-variant-fsm-red-agents) has been created to allow for better control and to reduce complexity.
+There are a large amount of possible agent modifications for this agent; so many that a [FSM variant template](../../../reference/agents/red_overview/#creating-variant-fsm-red-agents) has been created to allow for better control and to reduce complexity.
 
 However, three options have been left in the original. Two are for verbosity and one is for basic prioritisation.
 ```python title="FiniteStateRedAgent.py" linenums="50"
@@ -369,9 +369,9 @@ Explore these two output options below:
 === "Output Actions and Observations"
 
     This option gives you all the output you would possibly need to determine why the agent is doing what it is doing.
-    As well as showing you the action information and observation output (as discussed in the [previous tutorial](/pages/tutorials/02_Looking_Around/1_Observations/#observable-hosts-dictionary)), the 'host states' dictionary is also displayed.
+    As well as showing you the action information and observation output (as discussed in the [previous tutorial](../../../tutorials/02_Looking_Around/1_Observations/#observable-hosts-dictionary)), the 'host states' dictionary is also displayed.
 
-    The host states represent the agent's internal knowledge level for each host it is aware of. The host is identified via its IP address and given a state, which determines what future actions can be made on that state. For more information on this mechanism, look at the [reference agent design documentation](/pages/reference/agents/red_overview/#finite-state-machine-based-red-agents).
+    The host states represent the agent's internal knowledge level for each host it is aware of. The host is identified via its IP address and given a state, which determines what future actions can be made on that state. For more information on this mechanism, look at the [reference agent design documentation](../../../reference/agents/red_overview/#finite-state-machine-based-red-agents).
 
     The output that you get for the initial observation, and first two steps are shown below:
 

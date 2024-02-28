@@ -35,6 +35,9 @@ from CybORG.Agents.Wrappers import BlueFixedActionWrapper
 env = BlueFixedActionWrapper(env=cyborg)
 obs, _ = env.reset()
 
+# optional pretty-printing
+from rich import print
+
 print(obs.keys())
 ```
 
@@ -43,7 +46,7 @@ print(obs.keys())
     dict_keys(['blue_agent_0', 'blue_agent_1', 'blue_agent_2', 'blue_agent_3', 'blue_agent_4'])
     ```
 
-```python linenums="12"
+```python linenums="15"
 print(obs['blue_agent_0'])
 ```
 
@@ -246,7 +249,7 @@ This list will always show all the actions that the given agent could take in CC
 However, some hosts might not exist for the duration of an episode, and as a result, their corresponding
 actions will have no effect. This is reflected in the list with a `[Invalid]` prefix.
 
-```python linenums="13"
+```python linenums="16"
 print(env.action_space('blue_agent_0'))
 print(env.action_labels('blue_agent_0'))
 ```
@@ -351,7 +354,7 @@ If the specified action is invalid for the current episode, the agent will simpl
 do nothing. This function returns the next observation, rewards for the agents,
 the termination and truncation signals for each agent, and the info dictionary.
 
-```python linenums="15"
+```python linenums="18"
 actions = {'blue_agent_0': 42} # 'Restore restricted_zone_a_subnet_user_host_3'
 obs, reward, terminated, truncated, info = env.step(actions)
 print(reward['blue_agent_0'])
@@ -366,7 +369,7 @@ Challenge 4 provides a mechanism to optionally send 8-bit messages between agent
 This is achieved by supplying the `step` function with a dictionary of agents and
 a corresponding `np.array` with 8 binary elements.
 
-```python linenums="18"
+```python linenums="21"
 import numpy as np
 messages = {'blue_agent_0': np.array([1, 0, 0, 0, 0, 0, 0, 0])}
 obs, reward, terminated, truncated, info = env.step(actions, messages=messages)
@@ -393,6 +396,9 @@ from CybORG.Agents.Wrappers import BlueFlatWrapper
 
 env = BlueFlatWrapper(env=cyborg)
 obs, _ = env.reset()
+
+# optional pretty-printing
+from rich import print
 
 print('Space:', env.observation_space('blue_agent_0'), '\n')
 print('Observation:', obs['blue_agent_0'])

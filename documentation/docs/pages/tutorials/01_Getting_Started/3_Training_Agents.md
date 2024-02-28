@@ -88,7 +88,7 @@ algo_config = (
             config={"gamma": 0.85},
         ) for cyborg_agent, ray_agent in POLICY_MAP.items()
     },
-    policy_mapping_fn=policy_mapper_func
+    policy_mapping_fn=policy_mapper
 ))
 
 ```

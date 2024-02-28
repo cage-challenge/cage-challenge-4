@@ -63,7 +63,7 @@ class Submission:
 
     # Use this function to define your agents.
     AGENTS: dict[str, BaseAgent] = {
-        f"blue_agent_{agent}": DummyAgent() for agent in range(18)
+        f"blue_agent_{agent}": DummyAgent() for agent in range(5)
     }
 
     # Use this function to optionally wrap CybORG with your custom wrapper(s).
@@ -94,9 +94,9 @@ script, test your submission using the evaluation script provided with CybORG:
 The standard output from this command should closely resemble the following output:
 
 ```
-CybORG v3.1, Scenario4
+CybORG v4, Scenario4
 Author: SUBMISSION NAME, Team: TEAM NAME, Technique: TECHNIQUE NAME
-Using agents {'blue_agent_0': DummyAgent, 'blue_agent_1': DummyAgent, 'blue_agent_2': DummyAgent, 'blue_agent_3': DummyAgent, 'blue_agent_4': DummyAgent, 'blue_agent_5': DummyAgent, 'blue_agent_6': DummyAgent, 'blue_agent_7': DummyAgent, 'blue_agent_8': DummyAgent, 'blue_agent_9': DummyAgent, 'blue_agent_10': DummyAgent, 'blue_agent_11': DummyAgent, 'blue_agent_12': DummyAgent, 'blue_agent_13': DummyAgent, 'blue_agent_14': DummyAgent, 'blue_agent_15': DummyAgent, 'blue_agent_16': DummyAgent, 'blue_agent_17': DummyAgent}, if this is incorrect please update the code to load in your agent
+Using agents {'blue_agent_0': DummyAgent, 'blue_agent_1': DummyAgent, 'blue_agent_2': DummyAgent, 'blue_agent_3': DummyAgent, 'blue_agent_4': DummyAgent}
 Results will be saved to /tmp/output/
 Average reward is: -18386 with a standard deviation of 2904.794657114337
 File took 0:01:33.236403 amount of time to finish evaluation
