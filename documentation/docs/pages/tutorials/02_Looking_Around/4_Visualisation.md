@@ -69,18 +69,18 @@ You can then run the visualisation internally, where the steps are handled for y
     The rest of the network is compromise free ... but not for long!
 
     <figure markdown>
-      <img src="../assets/CC4_Visualisation_0.png" alt="CC4 Visualisation at step 0" width="1000">
+      <img src="/assets/CC4_Visualisation_0.png" alt="CC4 Visualisation at step 0" width="1000">
     </figure>
 
 
 === "Step 20"
     <figure markdown>
-      <img src="../assets/CC4_Visualisation_20.png" alt="CC4 Visualisation at step 0" width="1000">
+      <img src="/assets/CC4_Visualisation_20.png" alt="CC4 Visualisation at step 0" width="1000">
       <figcaption>Figure 1 - CC4 Visualisation at step 20</figcaption>
     </figure>
 
 === "Step 100"
     <figure markdown>
-      <img src="../assets/CC4_Visualisation_100.png" alt="CC4 Visualisation at step 0" width="1000">
+      <img src="/assets/CC4_Visualisation_100.png" alt="CC4 Visualisation at step 0" width="1000">
       <figcaption>Figure 1 - CC4 Visualisation at step 100</figcaption>
     </figure>
