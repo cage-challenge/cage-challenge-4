@@ -3751,16 +3751,16 @@ It represents a normal computer user and the majority of the rewards are derived
 <p>There are 3 actions that an EnterpriseGreenAgent can take:</p>
 <ul>
 <li><a href="../../03_Actions/A_Understanding_Actions/3_Sleep/">Sleep</a></li>
-<li><a href="/pages/reference/actions/green_actions/local_work/">GreenLocalWork</a></li>
-<li><a href="/pages/reference/actions/green_actions/access_service/">GreenAccessService</a></li>
+<li><a href="../../../reference/actions/green_actions/local_work/">GreenLocalWork</a></li>
+<li><a href="../../../reference/actions/green_actions/access_service/">GreenAccessService</a></li>
 </ul>
 <p>The string output of GreenLocalWork includes the IP address of the host where the local work is taking place, and the string output of GreenAccessService includes the destination IP address and port number.</p>
-<p>During GreenLocalWork, another subaction called <a href="/pages/reference/actions/green_actions/phishing_email/">PhishingEmail</a> can also occur. However as a sub action this will not appear on the action list.</p>
+<p>During GreenLocalWork, another subaction called <a href="../../../reference/actions/green_actions/phishing_email/">PhishingEmail</a> can also occur. However as a sub action this will not appear on the action list.</p>
 <h2 id="red-agents">Red Agents</h2>
-<p>CC4 has two main types of heuristic red agents: <a href="/pages/reference/agents/RandomSelectRedAgent/">RandomSelectRedAgent</a>, and <a href="/pages/reference/agents/FiniteStateRedAgent/">FiniteStateRedAgent</a>.</p>
+<p>CC4 has two main types of heuristic red agents: <a href="../../../reference/agents/RandomSelectRedAgent/">RandomSelectRedAgent</a>, and <a href="../../../reference/agents/FiniteStateRedAgent/">FiniteStateRedAgent</a>.</p>
 <h3 id="randomselectredagent">RandomSelectRedAgent</h3>
 <p>This red agent does what it says on the tin, 'randomly selects'. </p>
-<p>For red agents, there are a <a href="/pages/reference/agents/red_overview/#red-agent-actions">10 possible actions</a>, and this agent picks a random valid one from the list. Below is an example action list output from a RandomSelectRedAgent.</p>
+<p>For red agents, there are a <a href="../../../reference/agents/red_overview/#red-agent-actions">10 possible actions</a>, and this agent picks a random valid one from the list. Below is an example action list output from a RandomSelectRedAgent.</p>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">example_random_red.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
@@ -3856,7 +3856,7 @@ It represents a normal computer user and the majority of the rewards are derived
 <p>You can tell that the final attempt to withdraw was successful as there are no turns after this.
 To stop the agent trying to withdraw itself, you can set <code>disable_withdraw</code> to <code>True</code>.</p>
 <h3 id="finitestateredagent">FiniteStateRedAgent</h3>
-<p>This section will cover how to use the FiniteStateRedAgent. If you want more information about its <a href="/pages/reference/agents/red_overview/#finite-state-machine-based-red-agents">design</a> or the ability to <a href="/pages/reference/agents/red_overview/#creating-variant-fsm-red-agents">make variants</a> of this agent, please use the links provided.</p>
+<p>This section will cover how to use the FiniteStateRedAgent. If you want more information about its <a href="../../../reference/agents/red_overview/#finite-state-machine-based-red-agents">design</a> or the ability to <a href="../../../reference/agents/red_overview/#creating-variant-fsm-red-agents">make variants</a> of this agent, please use the links provided.</p>
 <p>The code to show the FiniteStateRedAgent actions is almost identical to <code>example_random_red.py</code> for the RandomSelectRedAgent, with only the agent name and number of steps being changed.</p>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">example_fsm_red.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
@@ -3929,7 +3929,7 @@ To stop the agent trying to withdraw itself, you can set <code>disable_withdraw<
 <p>The resultant actions have a more logical sequence than the RandomSelectRedAgent, with the agent first exploring the environment with discovery actions before focusing on a target to gain privileges on and impact.</p>
 <p>While the RandomSelectRedAgent should be easy to defeat or mitigate against, the FiniteStateRedAgent and its variants shold be a more difficult challenge.</p>
 <h4 id="agent-options_1">Agent Options</h4>
-<p>There are a large amount of possible agent modifications for this agent; so many that a <a href="/pages/reference/agents/red_overview/#creating-variant-fsm-red-agents">FSM variant template</a> has been created to allow for better control and to reduce complexity.</p>
+<p>There are a large amount of possible agent modifications for this agent; so many that a <a href="../../../reference/agents/red_overview/#creating-variant-fsm-red-agents">FSM variant template</a> has been created to allow for better control and to reduce complexity.</p>
 <p>However, three options have been left in the original. Two are for verbosity and one is for basic prioritisation.
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">FiniteStateRedAgent.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-50">50</a></span>
 <span class="normal"><a href="#__codelineno-8-51">51</a></span>
@@ -4038,8 +4038,8 @@ To stop the agent trying to withdraw itself, you can set <code>disable_withdraw<
 </div>
 <div class="tabbed-block">
 <p>This option gives you all the output you would possibly need to determine why the agent is doing what it is doing.
-As well as showing you the action information and observation output (as discussed in the <a href="/pages/tutorials/02_Looking_Around/1_Observations/#observable-hosts-dictionary">previous tutorial</a>), the 'host states' dictionary is also displayed.</p>
-<p>The host states represent the agent's internal knowledge level for each host it is aware of. The host is identified via its IP address and given a state, which determines what future actions can be made on that state. For more information on this mechanism, look at the <a href="/pages/reference/agents/red_overview/#finite-state-machine-based-red-agents">reference agent design documentation</a>.</p>
+As well as showing you the action information and observation output (as discussed in the <a href="../1_Observations/#observable-hosts-dictionary">previous tutorial</a>), the 'host states' dictionary is also displayed.</p>
+<p>The host states represent the agent's internal knowledge level for each host it is aware of. The host is identified via its IP address and given a state, which determines what future actions can be made on that state. For more information on this mechanism, look at the <a href="../../../reference/agents/red_overview/#finite-state-machine-based-red-agents">reference agent design documentation</a>.</p>
 <p>The output that you get for the initial observation, and first two steps are shown below:</p>
 <details class="quote">
 <summary>Code Output: print_obs_output &amp;&amp; print_action_output == True</summary>

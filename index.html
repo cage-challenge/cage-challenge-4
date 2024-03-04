@@ -3619,16 +3619,16 @@
   
 
 
-<p><img align="right" alt="TTCP CAGE Challenges Logo" src="../assets/CAGE-Logo-small.png" /></p>
+<p><img align="right" alt="TTCP CAGE Challenges Logo" src="assets/CAGE-Logo-small.png" /></p>
 <h1 id="ttcp-cage-challenge-4">TTCP CAGE Challenge 4</h1>
 <p>The TTCP CAGE Challenges are a series of public challenges instigated to foster the development of autonomous cyber defensive agents. The CAGE Challenges use cybersecurity scenarios inspired by real-world situations. </p>
 <p>The challenges use the Cyber Operations Research Gym (CybORG) to provide a cyber simulation for the training and evaluation AI algorithms, such as Deep Reinforcement Learning. The CAGE activity aims to run a series of challenges of increasing complexity and realism. </p>
 <h2 id="where-to-get-started">Where to get started</h2>
 <ol>
 <li>Download the CybORG package provided with the challenge or download the <a href="https://github.com/cage-challenge/cage-challenge-4">repository</a>.</li>
-<li>Read through the CybORG README, also available on the 'Challenge Details' tab of the documentation.</li>
-<li>Read the <a href="/pages/how-to-guides/">Tutorials</a> to get a better understanding of CybORG and how to train agents using it.</li>
-<li>Explore the <a href="/pages/reference/reference/">Reference</a> section for more in-depth class explanations.</li>
+<li>Read through the CybORG README, also available on the <a href="pages/">'Challenge Details' tab</a> of the documentation.</li>
+<li>Read the <a href="pages/how-to-guides/">Tutorials</a> to get a better understanding of CybORG and how to train agents using it.</li>
+<li>Explore the <a href="pages/reference/reference/">Reference</a> section for more in-depth class explanations.</li>
 <li>Develop your agent!</li>
 <li>Look at the <a href="https://codalab.lisn.upsaclay.fr/competitions/17672">Codalabs webpage</a> for how to submit.</li>
 </ol>
@@ -3673,7 +3673,7 @@ and your agent code that loads the model (if applicable).</p>
 <a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>    <span class="c1"># Use this function to define your agents.</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>    <span class="n">AGENTS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">BaseAgent</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="sa">f</span><span class="s2">&quot;blue_agent_</span><span class="si">{</span><span class="n">agent</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">DummyAgent</span><span class="p">()</span> <span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">18</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>        <span class="sa">f</span><span class="s2">&quot;blue_agent_</span><span class="si">{</span><span class="n">agent</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">DummyAgent</span><span class="p">()</span> <span class="k">for</span> <span class="n">agent</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>    <span class="p">}</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>
 <a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>    <span class="c1"># Use this function to optionally wrap CybORG with your custom wrapper(s).</span>
@@ -3695,9 +3695,9 @@ path: <code>load_weights(os.path.dirname(__file__) + "/agent_weights.pkl")</code
 script, test your submission using the evaluation script provided with CybORG:
 <code>python3 -m CybORG.Evaluation.evaluation --max-eps 2 /path/to/staging /tmp/output</code>.
 The standard output from this command should closely resemble the following output:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CybORG v3.1, Scenario4
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CybORG v4, Scenario4
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Author: SUBMISSION NAME, Team: TEAM NAME, Technique: TECHNIQUE NAME
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Using agents {&#39;blue_agent_0&#39;: DummyAgent, &#39;blue_agent_1&#39;: DummyAgent, &#39;blue_agent_2&#39;: DummyAgent, &#39;blue_agent_3&#39;: DummyAgent, &#39;blue_agent_4&#39;: DummyAgent, &#39;blue_agent_5&#39;: DummyAgent, &#39;blue_agent_6&#39;: DummyAgent, &#39;blue_agent_7&#39;: DummyAgent, &#39;blue_agent_8&#39;: DummyAgent, &#39;blue_agent_9&#39;: DummyAgent, &#39;blue_agent_10&#39;: DummyAgent, &#39;blue_agent_11&#39;: DummyAgent, &#39;blue_agent_12&#39;: DummyAgent, &#39;blue_agent_13&#39;: DummyAgent, &#39;blue_agent_14&#39;: DummyAgent, &#39;blue_agent_15&#39;: DummyAgent, &#39;blue_agent_16&#39;: DummyAgent, &#39;blue_agent_17&#39;: DummyAgent}, if this is incorrect please update the code to load in your agent
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Using agents {&#39;blue_agent_0&#39;: DummyAgent, &#39;blue_agent_1&#39;: DummyAgent, &#39;blue_agent_2&#39;: DummyAgent, &#39;blue_agent_3&#39;: DummyAgent, &#39;blue_agent_4&#39;: DummyAgent}
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Results will be saved to /tmp/output/
 <a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Average reward is: -18386 with a standard deviation of 2904.794657114337
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>File took 0:01:33.236403 amount of time to finish evaluation
@@ -3732,8 +3732,6 @@ planning on publishing the analysis and taxonomy of the different approaches tha
 autonomous cyber defensive agents. To that end, we encourage you to also share details on
 any unsuccessful approaches taken. Please also feel free to share any interesting discoveries
 and thoughts regarding future work to help us shape the future of the CAGE Challenges.</p>
-<p>We provide a latex template as a guide for writing your description.
-An examplar description can be found here.</p>
 <p>We provide a <a href="https://github.com/cage-challenge/CybORG/blob/main/CybORG/Evaluation/submission/submission_template_example/template_readme.md">latex template</a> as a guide for writing your description.
 An examplar description can be found <a href="https://arxiv.org/pdf/2211.15557.pdf">here</a>.</p>
 <h3 id="evaluation-results">Evaluation results</h3>
