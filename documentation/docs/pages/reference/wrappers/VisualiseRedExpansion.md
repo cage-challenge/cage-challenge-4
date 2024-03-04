@@ -1,5 +1,5 @@
 # Visualisation Wrapper: VisualiseRedExpansion
-For further information on how to use this wrapper, please go to its [tutorial](/pages/tutorials/02_Looking_Around/4_Visualisation/).
+For further information on how to use this wrapper, please go to its [tutorial](../../tutorials/02_Looking_Around/4_Visualisation.md).
 
 ::: CybORG.Agents.Wrappers.VisualiseRedExpansion.VisualiseRedExpansion
     handler: python

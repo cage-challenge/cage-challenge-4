@@ -407,7 +407,7 @@ print('Observation:', obs['blue_agent_0'])
 ???+ Quote "Code Output"
     ???+ Note
         For a full breakdown of how the observation vectors are structured,
-        see [Appendix B](/pages/#appendix-b-agent-observation).
+        see [Appendix B](../../README.md#appendix-b-agent-observation).
 
     ```python 
     Space: MultiDiscrete(

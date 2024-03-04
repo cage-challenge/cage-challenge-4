@@ -32,7 +32,7 @@ env = TrueStateTableWrapper(cyborg)
 cyborg.reset()
 ```
 
-This wrapper produces 3 types of output: an overview, a process perspective, and an agent perspective. The usage and outputs from these functions are further demonstrated next. The functions are further documented in the [reference section]().
+This wrapper produces 3 types of output: an overview, a process perspective, and an agent perspective. The usage and outputs from these functions are further demonstrated next. The functions are further documented in the [reference section](../../reference/reference.md#outputs-and-wrappers).
 
 === "Host Overview"
     ```python title="true_state_wrapper_example.py" linenums="15"
@@ -297,7 +297,7 @@ integer-to-action mapping and avoid temporarily invalid actions:
 This wrapper is an extension of the `BlueFixedActionWrapper` that flattens the CybORG
 observation into a vector of fixed-size and fixed-order for training RL agents.
 A full breakdown of how the observation vectors are structured is available at
-[Appendix B](../../#appendix-b-agent-observation).
+[Appendix B](../../README.md#appendix-b-agent-observation).
 
 ???+ Note "Observation Space Padding"
     Setting `pad_spaces = True` will pad the observation vector of each agent to the
@@ -319,4 +319,4 @@ Unfortunately we cannot create wrappers for everyone, so we have created one for
 ### EnterpriseMAE
 This wrapper is a `BlueEnterpriseWrapper` that is compatible with RLlib's `MultiAgentEnv` class to interface between CybORG and RLlib agents.
 
-A step-by-step guide for getting started with this wrapper is available in [Tutorial 1 - Training RLlib Agents](/pages/tutorials/01_Getting_Started/3_Training_Agents/).
+A step-by-step guide for getting started with this wrapper is available in [Tutorial 1 - Training RLlib Agents](../01_Getting_Started/3_Training_Agents.md).

@@ -54,7 +54,7 @@ pprint(true_state)
 
 Red's observation is relatively readable, however as Blue and Green have larger observation spaces it can be better to visualise this data as a table.
 
-The [TrueStateTableWrapper](/pages/tutorials/02_Looking_Around/3_Wrappers/#truestatetablewrapper) can show you how to use this wrapper to get out more information about the true state of the environment.
+The [TrueStateTableWrapper](3_Wrappers.md#truestatetablewrapper) can show you how to use this wrapper to get out more information about the true state of the environment.
 
 ## Other Debugging Tools
 

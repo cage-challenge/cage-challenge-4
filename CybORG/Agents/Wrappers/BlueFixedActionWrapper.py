@@ -114,7 +114,7 @@ class BlueFixedActionWrapper(BaseWrapper):
 
         Parameters
         ----------
-        action_dict : dict[str, int] 
+        actions : dict[str, int] 
             The action index corresponding to each agent. 
             These indices will be mapped to CybORG actions using the equivalent of `actions(agent)[index]`. 
             The meaning of each action can be found using `action_labels(agent)[index]`.

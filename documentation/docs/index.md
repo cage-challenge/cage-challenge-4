@@ -15,9 +15,9 @@ The challenges use the Cyber Operations Research Gym (CybORG) to provide a cyber
 ## Where to get started
 
 1. Download the CybORG package provided with the challenge or download the [repository](https://github.com/cage-challenge/cage-challenge-4).
-2. Read through the CybORG README, also available on the ['Challenge Details' tab](/pages/) of the documentation.
-3. Read the [Tutorials](pages/how-to-guides/) to get a better understanding of CybORG and how to train agents using it.
-4. Explore the [Reference](pages/reference/reference/) section for more in-depth class explanations.
+2. Read through the CybORG README, also available on the ['Challenge Details' tab](pages/README.md) of the documentation.
+3. Read the [Tutorials](pages/how-to-guides.md) to get a better understanding of CybORG and how to train agents using it.
+4. Explore the [Reference](pages/reference/reference.md) section for more in-depth class explanations.
 5. Develop your agent!
 6. Look at the [Codalabs webpage](https://codalab.lisn.upsaclay.fr/competitions/17672) for how to submit.
 
