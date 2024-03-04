@@ -16,7 +16,7 @@ The Impact action also requires a red root shell on the host. To get this the fo
 - `ExploitRemoteService_cc4` - to get a user level shell on the host.
 - `PrivilegeEscalate` - to get a root level shell on the host.
 
-You can refer to the [DegradeServices preamble](/pages/tutorials/03_Actions/C_Red_Actions/6_Degrade_Services/#red-agent-preamble) for more details.
+You can refer to the [DegradeServices preamble](6_Degrade_Services.md#red-agent-preamble) for more details.
 
 Here is the observation space output for the PrivilegeEscalate action, for comparison later:
 ??? quote "Code Output"

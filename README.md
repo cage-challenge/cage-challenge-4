@@ -180,7 +180,7 @@ Blue agents start with 0 points and are assigned penalties when green agents are
 
 We use the Cyber Operations Research Gym (CybORG) to simulate the cyber environment for each CAGE challenge.
 
-Please see [the Installation Instruction guide](/documentation/docs/pages/tutorials/00_Introduction/) for further instructions on how to install and run the environment and see [here](/documentation/docs/pages/tutorials/01_Getting_Started/) for additional tutorials.
+Please see [the Installation Instruction guide](https://cage-challenge.github.io/cage-challenge-4/pages/tutorials/01_Getting_Started/1_Introduction/) for further instructions on how to install and run the environment, and see [here](https://cage-challenge.github.io/cage-challenge-4/pages/how-to-guides/) for additional tutorials.
 
 ## How to submit responses
 

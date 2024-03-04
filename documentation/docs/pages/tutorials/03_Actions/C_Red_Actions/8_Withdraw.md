@@ -232,7 +232,7 @@ Unlike in the result observation for `PrivilegeEscalate`, there is no trace of `
 
 ## Testing Action Success
 
-To test this, we will attempt to run [Degrade_Services](7_Degrade_Services.md) on `contractor_network_subnet_user_host_5`. `Degrade_Services` requires Red to have a root shell on the target to work.
+To test this, we will attempt to run [Degrade_Services](6_Degrade_Services.md) on `contractor_network_subnet_user_host_5`. `Degrade_Services` requires Red to have a root shell on the target to work.
 
 ```python title="red_withdraw.py" linenums="40"
 action = DegradeServices(hostname='contractor_network_subnet_user_host_5', session=0, agent=red_agent_name)

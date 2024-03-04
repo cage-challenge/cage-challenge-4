@@ -10,7 +10,7 @@ The feedback in the observation space every step, from the `Monitor` action, can
 
 ## Red Preamble
 
-This tutorial will use the same initial [red preamble](/pages/tutorials/03_Actions/B_Blue_Actions/3_Decoy/#red-preamble) as the `DeployDecoy` tutorial, please refer to that for more details about getting a root shell on `contractor_network_subnet_server_host_0`.
+This tutorial will use the same initial [red preamble](3_Decoy.md#red-preamble) as the `DeployDecoy` tutorial, please refer to that for more details about getting a root shell on `contractor_network_subnet_server_host_0`.
 
 However this tutorial will also require another helper function to get a shell on `restricted_zone_a_subnet_server_host_0`. In this example, `target_subnet` and `target_host` are global variables.
 

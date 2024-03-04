@@ -5,7 +5,7 @@ hide:
 ---
 
 
-![TTCP CAGE Challenges Logo](../assets/CAGE-Logo-small.png){ align=right }
+![TTCP CAGE Challenges Logo](assets/CAGE-Logo-small.png){ align=right }
 # TTCP CAGE Challenge 4
 
 The TTCP CAGE Challenges are a series of public challenges instigated to foster the development of autonomous cyber defensive agents. The CAGE Challenges use cybersecurity scenarios inspired by real-world situations. 
@@ -15,9 +15,9 @@ The challenges use the Cyber Operations Research Gym (CybORG) to provide a cyber
 ## Where to get started
 
 1. Download the CybORG package provided with the challenge or download the [repository](https://github.com/cage-challenge/cage-challenge-4).
-2. Read through the CybORG README, also available on the 'Challenge Details' tab of the documentation.
-3. Read the [Tutorials](/pages/how-to-guides/) to get a better understanding of CybORG and how to train agents using it.
-4. Explore the [Reference](/pages/reference/reference/) section for more in-depth class explanations.
+2. Read through the CybORG README, also available on the ['Challenge Details' tab](pages/README.md) of the documentation.
+3. Read the [Tutorials](pages/how-to-guides.md) to get a better understanding of CybORG and how to train agents using it.
+4. Explore the [Reference](pages/reference/reference.md) section for more in-depth class explanations.
 5. Develop your agent!
 6. Look at the [Codalabs webpage](https://codalab.lisn.upsaclay.fr/competitions/17672) for how to submit.
 
@@ -63,7 +63,7 @@ class Submission:
 
     # Use this function to define your agents.
     AGENTS: dict[str, BaseAgent] = {
-        f"blue_agent_{agent}": DummyAgent() for agent in range(18)
+        f"blue_agent_{agent}": DummyAgent() for agent in range(5)
     }
 
     # Use this function to optionally wrap CybORG with your custom wrapper(s).
@@ -94,9 +94,9 @@ script, test your submission using the evaluation script provided with CybORG:
 The standard output from this command should closely resemble the following output:
 
 ```
-CybORG v3.1, Scenario4
+CybORG v4, Scenario4
 Author: SUBMISSION NAME, Team: TEAM NAME, Technique: TECHNIQUE NAME
-Using agents {'blue_agent_0': DummyAgent, 'blue_agent_1': DummyAgent, 'blue_agent_2': DummyAgent, 'blue_agent_3': DummyAgent, 'blue_agent_4': DummyAgent, 'blue_agent_5': DummyAgent, 'blue_agent_6': DummyAgent, 'blue_agent_7': DummyAgent, 'blue_agent_8': DummyAgent, 'blue_agent_9': DummyAgent, 'blue_agent_10': DummyAgent, 'blue_agent_11': DummyAgent, 'blue_agent_12': DummyAgent, 'blue_agent_13': DummyAgent, 'blue_agent_14': DummyAgent, 'blue_agent_15': DummyAgent, 'blue_agent_16': DummyAgent, 'blue_agent_17': DummyAgent}, if this is incorrect please update the code to load in your agent
+Using agents {'blue_agent_0': DummyAgent, 'blue_agent_1': DummyAgent, 'blue_agent_2': DummyAgent, 'blue_agent_3': DummyAgent, 'blue_agent_4': DummyAgent}
 Results will be saved to /tmp/output/
 Average reward is: -18386 with a standard deviation of 2904.794657114337
 File took 0:01:33.236403 amount of time to finish evaluation
@@ -141,9 +141,6 @@ planning on publishing the analysis and taxonomy of the different approaches tha
 autonomous cyber defensive agents. To that end, we encourage you to also share details on
 any unsuccessful approaches taken. Please also feel free to share any interesting discoveries
 and thoughts regarding future work to help us shape the future of the CAGE Challenges.
-
-We provide a latex template as a guide for writing your description.
-An examplar description can be found here.
 
 We provide a [latex template](https://github.com/cage-challenge/CybORG/blob/main/CybORG/Evaluation/submission/submission_template_example/template_readme.md) as a guide for writing your description.
 An examplar description can be found [here](https://arxiv.org/pdf/2211.15557.pdf).

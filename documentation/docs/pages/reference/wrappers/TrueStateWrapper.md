@@ -1,5 +1,5 @@
 # Debug Wrapper: TrueStateWrapper
-For further information on how to use this wrapper, please go to its [tutorial](/pages/tutorials/02_Looking_Around/5_Debugging_Tools/).
+For further information on how to use this wrapper, please go to its [tutorial](../../tutorials/02_Looking_Around/5_Debugging_Tools.md).
 
 ::: CybORG.Agents.Wrappers.TrueStateWrapper.TrueStateTableWrapper
     handler: python

@@ -1,6 +1,6 @@
 # The Action Space
 
-Without the use of wrappers,  CybORG actions need to be constructed by the agent before being passed in. If you are not interested this, we suggest you skip to the [Wrapper tutorial](06_Wrappers.ipynb).
+Without the use of wrappers,  CybORG actions need to be constructed by the agent before being passed in.
 
 The action space is updated every step and can returned from the environment using the `get_action_space` function. 
 Because this dictionary is quite large, we will only print the keys below.

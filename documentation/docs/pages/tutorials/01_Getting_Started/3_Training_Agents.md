@@ -3,6 +3,8 @@ This section is a tutorial to train the defensive blue agents in the CybORG envi
 
 This example is a most basic training example using RLlib. More indepth tutorials of RLlib use can be found in [Ray's documentation of RLlib](https://docs.ray.io/en/latest/rllib/rllib-training.html).
 
+The code for this example is provided as `CybORG/Evaluation/training_examples/TrainingRay.py`.
+
 ???+ Question "What if I don't want to use RLlib?"
     The submissions to CAGE challenge 4 are not limited to reinforcement learning approaches or use of RLlib. Please feel free to make your own custom wrappers!
 
@@ -80,6 +82,7 @@ To configure the environment, use the standard RLlib config formant. For multi-a
 algo_config = (
     PPOConfig()
     .environment(env="CC4")
+    .debugging(logger_config={"logdir":"logs/PPO_Example", "type":"ray.tune.logger.TBXLogger"})
     .multi_agent(policies={
         ray_agent: PolicySpec(
             policy_class=None,
@@ -88,7 +91,7 @@ algo_config = (
             config={"gamma": 0.85},
         ) for cyborg_agent, ray_agent in POLICY_MAP.items()
     },
-    policy_mapping_fn=policy_mapper_func
+    policy_mapping_fn=policy_mapper
 ))
 
 ```
@@ -97,7 +100,7 @@ algo_config = (
 
 To train the agents with the above config, three steps are then required - building the alogrithm, setting the number of steps you wish to run the algorithm for and then saving the results for further analysis. 
 
-```python linenums="39"
+```python linenums="40"
 algo = algo_config.build()
 
 for i in range(50):
@@ -106,7 +109,7 @@ for i in range(50):
 algo.save("results")
 ```
 
-After the training has occoured you can analyse the results on your prefered platfrom. To use tensorboard run the following command:
+After the training has occurred you can analyse the results on your prefered platfrom. To use tensorboard run the following command:
 
 `tensorboard --logdir logs/`
 

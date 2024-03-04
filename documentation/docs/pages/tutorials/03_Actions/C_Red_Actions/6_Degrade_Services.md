@@ -313,4 +313,4 @@ This output is quite long, but in summary it tells us three things:
 - The action was executed successfully.
 - All the processes listed on the host that the action was run on were degraded.
 
-While the observation space output does not directly tell red (or blue) how much each service has been degraded by, the rewards received when green fails their [`GreenLocalWork`](/pages/reference/actions/green_actions/local_work/) action should be taken as the indication of the 'health' of the host and how much the operation is being affected by red.
+While the observation space output does not directly tell red (or blue) how much each service has been degraded by, the rewards received when green fails their [`GreenLocalWork`](../../../reference/actions/green_actions/local_work.md) action should be taken as the indication of the 'health' of the host and how much the operation is being affected by red.

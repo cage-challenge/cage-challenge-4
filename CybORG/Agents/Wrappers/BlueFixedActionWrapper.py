@@ -114,7 +114,7 @@ class BlueFixedActionWrapper(BaseWrapper):
 
         Parameters
         ----------
-        action_dict : dict[str, int] 
+        actions : dict[str, int] 
             The action index corresponding to each agent. 
             These indices will be mapped to CybORG actions using the equivalent of `actions(agent)[index]`. 
             The meaning of each action can be found using `action_labels(agent)[index]`.
@@ -149,7 +149,8 @@ class BlueFixedActionWrapper(BaseWrapper):
 
         messages = {} if messages is None else messages
         messages = {
-            agent: messages.get(agent, EMPTY_MESSAGE) for agent in self.possible_agents
+            agent: messages.get(agent, EMPTY_MESSAGE).astype(bool)
+            for agent in self.possible_agents
         }
 
         obs, rews, dones, info = self.env.parallel_step(

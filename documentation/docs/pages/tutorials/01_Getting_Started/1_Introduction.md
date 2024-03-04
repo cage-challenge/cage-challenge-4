@@ -78,5 +78,5 @@ sudo apt install python3-tk --assume-yes
 Run the following tests to check you've installed CybORG correctly.
 
 ```
-pytest ./CybORG/Tests/test_sim
+pytest ./CybORG/Tests/test_cc4
 ```
