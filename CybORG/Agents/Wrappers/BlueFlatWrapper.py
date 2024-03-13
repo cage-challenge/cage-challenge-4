@@ -202,9 +202,8 @@ class BlueFlatWrapper(BlueFixedActionWrapper):
             subnet_subvector = [subnet == name for name in subnet_names]
 
             # Get blocklist
-            cidr = state.subnet_name_to_cidr[subnet]
-            blocked_subnets = state.blocks.get(cidr, [])
-            blocked_subvector = [s in blocked_subnets for s in subnet_cidrs]
+            blocked_subnets = state.blocks.get(subnet, [])
+            blocked_subvector = [s in blocked_subnets for s in subnet_names]
 
             # Comms
             comms_policy = self.comms_policies[state.mission_phase]

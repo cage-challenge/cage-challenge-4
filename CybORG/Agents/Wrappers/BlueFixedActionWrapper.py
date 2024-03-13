@@ -268,17 +268,18 @@ class BlueFixedActionWrapper(BaseWrapper):
                 continue
 
             if command_name in ("AllowTrafficZone", "BlockTrafficZone"):
-                for subnet in self._agent_metadata[agent_name]["subnets"]:
-                    dst = state.subnet_name_to_cidr[subnet]
+                for dstname in self._agent_metadata[agent_name]["subnets"]:
+                    dst = state.subnet_name_to_cidr[dstname]
 
                     for srcname, src in sorted_subnet_name_to_cidr:
+                        srcname = srcname.lower()
                         if src == dst:
                             continue
                         actions.append(
-                            command(from_subnet=src, to_subnet=dst, **action_params)
+                            command(from_subnet=srcname, to_subnet=dstname, **action_params)
                         )
                         labels.append(
-                            f"{command_name} {subnet} ({dst}) <- {srcname.lower()} ({src})"
+                            f"{command_name} {dstname} ({dst}) <- {srcname} ({src})"
                         )
                         mask.append(True)
                 continue
