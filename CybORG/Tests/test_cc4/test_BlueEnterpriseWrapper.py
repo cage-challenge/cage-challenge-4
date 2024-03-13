@@ -221,10 +221,10 @@ def blue_subnet(cyborg, blue_agent_short):
 def cyborg_blocked(cyborg, blue_subnet):
     """Here we choose a random subnet different to that of the blue agent being tested and add it to the blocklist"""
     state = cyborg.get_attr("environment_controller").state
-    other_subnets = [x for x in state.subnets if x!= blue_subnet]
-    blocked_subnet = random.choice(other_subnets)
-    state.blocks[blue_subnet] = [blocked_subnet]
-
+    other_subnets = [x.lower() for x in state.subnet_name_to_cidr if x != blue_subnet]
+    blocked_subnet_name = random.choice(other_subnets)
+    blue_subnet_name = state.subnets_cidr_to_name[blue_subnet]
+    state.blocks[blue_subnet_name] = [blocked_subnet_name]
     return cyborg
 
 @pytest.fixture
@@ -242,8 +242,8 @@ def test_BlueEnterpriseWrapper_blocked_step(cyborg_blocked, blue_agent_short, bl
     '''Manually block several hosts and check observation contains them'''
     state = cyborg_blocked.get_attr("environment_controller").state
     subnet_names = sorted([k.lower() for k in state.subnet_name_to_cidr])
-    blocked_subnet_address = state.blocks[blue_subnet][0]
-    blocked_subnet_name = state.subnets[blocked_subnet_address].name
+    blue_subnet_name = state.subnets_cidr_to_name[blue_subnet]
+    blocked_subnet_name = state.blocks[blue_subnet_name][0]
     blocked_index = subnet_names.index(blocked_subnet_name)
 
     proto_vector = NUM_SUBNETS * [0]
