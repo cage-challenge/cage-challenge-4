@@ -12,6 +12,7 @@ from CybORG.Simulator.Scenarios.EnterpriseScenarioGenerator import SUBNET
 from CybORG.Agents import SleepAgent
 from CybORG.Agents.Wrappers import BlueEnterpriseWrapper, BaseWrapper
 from CybORG.Simulator.Actions import Sleep, Monitor
+from CybORG.Simulator.Actions.ConcreteActions.ControlTraffic import BlockTrafficZone
 from CybORG.Simulator.HostEvents import NetworkConnection
 
 from CybORG.Agents.Wrappers.BlueEnterpriseWrapper import (
@@ -218,16 +219,6 @@ def blue_subnet(cyborg, blue_agent_short):
     return blue_agent_subnet_cidr
 
 @pytest.fixture
-def cyborg_blocked(cyborg, blue_subnet):
-    """Here we choose a random subnet different to that of the blue agent being tested and add it to the blocklist"""
-    state = cyborg.get_attr("environment_controller").state
-    other_subnets = [x.lower() for x in state.subnet_name_to_cidr if x != blue_subnet]
-    blocked_subnet_name = random.choice(other_subnets)
-    blue_subnet_name = state.subnets_cidr_to_name[blue_subnet]
-    state.blocks[blue_subnet_name] = [blocked_subnet_name]
-    return cyborg
-
-@pytest.fixture
 def reset_obs_short(cyborg, blue_agent_short):
     results = cyborg.reset(blue_agent_short)
     return results[0][blue_agent_short]
@@ -238,19 +229,26 @@ def test_BlueEnterpriseWrapper_blocked_reset(reset_obs_short, blue_agent_short):
 
     assert (blocked_values == np.zeros(NUM_SUBNETS)).all()
 
-def test_BlueEnterpriseWrapper_blocked_step(cyborg_blocked, blue_agent_short, blue_subnet):
+def test_BlueEnterpriseWrapper_blocked_step(cyborg, blue_agent_short, blue_subnet):
     '''Manually block several hosts and check observation contains them'''
-    state = cyborg_blocked.get_attr("environment_controller").state
+    state = cyborg.get_attr("environment_controller").state
     subnet_names = sorted([k.lower() for k in state.subnet_name_to_cidr])
     blue_subnet_name = state.subnets_cidr_to_name[blue_subnet]
-    blocked_subnet_name = state.blocks[blue_subnet_name][0]
+    blocked_subnet_name = random.choice([s for s in subnet_names if s != blue_subnet])
     blocked_index = subnet_names.index(blocked_subnet_name)
 
     proto_vector = NUM_SUBNETS * [0]
     proto_vector[blocked_index] = 1
     expected_values = np.array(proto_vector)
 
-    observations, _, _, _, _ = cyborg_blocked.step(actions={blue_agent_short: Sleep()})
+    action = BlockTrafficZone(
+        session=0,
+        agent=blue_agent_short,
+        from_subnet=blocked_subnet_name,
+        to_subnet=blue_subnet_name,
+    )
+
+    observations, _, _, _, _ = cyborg.step(actions={blue_agent_short: action})
     blocked_values = observations[blue_agent_short][BLOCKED_SUBNETS_SLICE]
 
     assert (blocked_values == expected_values).all()
