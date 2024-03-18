@@ -153,7 +153,6 @@ class EnterpriseScenarioGenerator(ScenarioGenerator):
         self._generate_green_agents(hosts, subnets, agents)
         self._generate_red_agents(subnets, agents)
         team_agents = self._generate_team_agents(agents)
-        allowed_subnets_per_mphase = self._set_allowed_subnets_per_mission_phase()
         scenario = Scenario(
             agents=agents,
             team_calcs=None,
