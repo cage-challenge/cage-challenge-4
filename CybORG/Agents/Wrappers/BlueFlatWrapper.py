@@ -290,12 +290,14 @@ class BlueFlatWrapper(BlueFixedActionWrapper):
                 ("restricted_zone_a_subnet", "operational_zone_a_subnet"),
                 ("restricted_zone_a_subnet", "contractor_network_subnet"),
                 ("restricted_zone_a_subnet", "restricted_zone_b_subnet"),
+                ("restricted_zone_a_subnet", "internet_subnet"),
             ))
         elif mission == "MissionB":
             network.remove_edges_from((
                 ("restricted_zone_b_subnet", "operational_zone_b_subnet"),
                 ("restricted_zone_b_subnet", "contractor_network_subnet"),
-                ("restricted_zone_a_subnet", "restricted_zone_b_subnet"),
+                ("restricted_zone_b_subnet", "restricted_zone_a_subnet"),
+                ("restricted_zone_b_subnet", "internet_subnet"),
             ))
 
         return network
