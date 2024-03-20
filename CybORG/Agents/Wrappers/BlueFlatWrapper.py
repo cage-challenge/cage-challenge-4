@@ -120,7 +120,7 @@ class BlueFlatWrapper(BlueFixedActionWrapper):
 
         observations = {
             agent: self.observation_change(agent, obs)
-            for agent, obs in observations.items()
+            for agent, obs in sorted(observations.items())
             if "blue" in agent
         }
         return observations, rewards, terminated, truncated, info
@@ -209,7 +209,8 @@ class BlueFlatWrapper(BlueFixedActionWrapper):
             # Comms
             comms_policy = self.comms_policies[state.mission_phase]
             comms_matrix = nx.to_numpy_array(comms_policy, nodelist=subnet_names)
-            comms_policy_subvector = list(comms_matrix[subnet_names.index(subnet)])
+            comms_policy_subvector = comms_matrix[subnet_names.index(subnet)]
+            comms_policy_subvector = np.logical_not(comms_policy_subvector)
             self.policy[agent_name] = comms_policy
 
             # Process malware events for users, then servers
@@ -267,30 +268,37 @@ class BlueFlatWrapper(BlueFixedActionWrapper):
     def _build_comms_policy_network(self, mission: str):
         hosts = (
             "internet_subnet",
+            "admin_network_subnet",
+            "office_network_subnet",
+            "public_access_zone_subnet",
+            "contractor_network_subnet",
             "restricted_zone_a_subnet",
             "restricted_zone_b_subnet",
-            "contractor_network_subnet",
-            "public_access_zone_subnet",
         )
 
-        links_to_add = (
-            ("restricted_zone_a_subnet", "operational_zone_a_subnet"),
-            ("restricted_zone_b_subnet", "operational_zone_b_subnet"),
-            ("public_access_zone_subnet", "admin_network_subnet"),
-            ("public_access_zone_subnet", "office_network_subnet"),
-        )
-
-        network = nx.star_graph(len(hosts) - 1)
+        network = nx.complete_graph(len(hosts))
         node_mapping = dict(enumerate(hosts))
         network = nx.relabel_nodes(network, node_mapping)
-        network.add_edges_from(links_to_add)
+
+        network.add_edges_from((
+            ("restricted_zone_a_subnet", "operational_zone_a_subnet"),
+            ("restricted_zone_b_subnet", "operational_zone_b_subnet"),
+        ))
 
         if mission == "MissionA":
-            blocked_link = ("restricted_zone_a_subnet", "operational_zone_a_subnet")
-            network.remove_edge(*blocked_link)
+            network.remove_edges_from((
+                ("restricted_zone_a_subnet", "operational_zone_a_subnet"),
+                ("restricted_zone_a_subnet", "contractor_network_subnet"),
+                ("restricted_zone_a_subnet", "restricted_zone_b_subnet"),
+                ("restricted_zone_a_subnet", "internet_subnet"),
+            ))
         elif mission == "MissionB":
-            blocked_link = ("restricted_zone_b_subnet", "operational_zone_b_subnet")
-            network.remove_edge(*blocked_link)
+            network.remove_edges_from((
+                ("restricted_zone_b_subnet", "operational_zone_b_subnet"),
+                ("restricted_zone_b_subnet", "contractor_network_subnet"),
+                ("restricted_zone_b_subnet", "restricted_zone_a_subnet"),
+                ("restricted_zone_b_subnet", "internet_subnet"),
+            ))
 
         return network
 

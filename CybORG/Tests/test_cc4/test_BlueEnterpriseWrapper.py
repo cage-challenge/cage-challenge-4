@@ -261,34 +261,57 @@ def mission_phase(request):
 
 @pytest.fixture
 def network(mission_phase):
-    hosts = (
-        'internet_subnet',
-        'restricted_zone_a_subnet',
-        'restricted_zone_b_subnet',
+    adjacency_matrices = {
+        "Preplanning": np.array(
+            [[0, 1, 1, 1, 1, 0, 1, 0, 1],
+             [1, 0, 1, 1, 1, 0, 1, 0, 1],
+             [1, 1, 0, 1, 1, 0, 1, 0, 1],
+             [1, 1, 1, 0, 1, 0, 1, 0, 1],
+             [1, 1, 1, 1, 0, 1, 1, 0, 1],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [1, 1, 1, 1, 1, 0, 0, 1, 1],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0],
+             [1, 1, 1, 1, 1, 0, 1, 0, 0,]]
+        ), 
+        "MissionA": np.array(
+            [[0, 1, 1, 1, 1, 0, 1, 0, 1],
+             [1, 0, 1, 1, 1, 0, 1, 0, 1],
+             [1, 1, 0, 1, 1, 0, 1, 0, 1],
+             [1, 1, 1, 0, 0, 0, 1, 0, 1],
+             [1, 1, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 1, 1, 1, 0, 0, 0, 1, 1],
+             [0, 0, 0, 0, 0, 0, 1, 0, 0],
+             [1, 1, 1, 1, 0, 0, 1, 0, 0,]]
+        ),
+        "MissionB": np.array(
+            [[0, 1, 1, 1, 1, 0, 1, 0, 1],
+             [1, 0, 1, 1, 1, 0, 1, 0, 1],
+             [1, 1, 0, 1, 1, 0, 1, 0, 1],
+             [1, 1, 1, 0, 1, 0, 0, 0, 1],
+             [1, 1, 1, 1, 0, 1, 0, 0, 1],
+             [0, 0, 0, 0, 1, 0, 0, 0, 0],
+             [1, 1, 1, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+             [1, 1, 1, 1, 1, 0, 0, 0, 0,]]
+        ),
+    }
+
+    # The above matrix corresponds to the documentation
+    names = [
+        'office_network_subnet',
+        'admin_network_subnet',
+        'public_access_zone_subnet',
         'contractor_network_subnet',
-        'public_access_zone_subnet'
-    )
-
-    links_to_add = (
-        ('restricted_zone_a_subnet', 'operational_zone_a_subnet'),
-        ('restricted_zone_b_subnet', 'operational_zone_b_subnet'),
-        ('public_access_zone_subnet', 'admin_network_subnet'),
-        ('public_access_zone_subnet', 'office_network_subnet'),
-    )
-
-    network = nx.star_graph(len(hosts)-1)
-    node_mapping = dict(enumerate(hosts))
+        'restricted_zone_a_subnet',
+        'operational_zone_a_subnet',
+        'restricted_zone_b_subnet',
+        'operational_zone_b_subnet',
+        'internet_subnet', 
+    ]
+    node_mapping = dict(enumerate(names))
+    network = nx.from_numpy_array(adjacency_matrices[mission_phase])
     network = nx.relabel_nodes(network, node_mapping)
-    network.add_edges_from(links_to_add)
-
-    if mission_phase == 'MissionA':
-        blocked_link = ('restricted_zone_a_subnet', 'operational_zone_a_subnet')
-        network.remove_edge(*blocked_link)
-
-    elif mission_phase == 'MissionB':
-        blocked_link = ('restricted_zone_b_subnet', 'operational_zone_b_subnet')
-        network.remove_edge(*blocked_link)
-
     return network
 
 @pytest.fixture
@@ -298,10 +321,8 @@ def expected_comms_policy(network, blue_agent_short, cyborg):
     agent_subnet = state.hostname_subnet_map[agent_hostname]
 
     nodelist = sorted(network.nodes)
-    matrix = nx.to_numpy_array(network,nodelist=nodelist)
-    for i, node in enumerate(nodelist):
-        if node == agent_subnet:
-            return matrix[i]
+    matrix = nx.to_numpy_array(network, nodelist=nodelist)
+    return np.logical_not(matrix[nodelist.index(agent_subnet)])
 
 def test_BlueEnterpriseWrapper_comms_policy_reset(reset_obs_short, blue_agent_short, expected_comms_policy, mission_phase):
     """Tests the ideal comms policy for the mission phase."""
@@ -309,8 +330,6 @@ def test_BlueEnterpriseWrapper_comms_policy_reset(reset_obs_short, blue_agent_sh
         return
 
     comms_block = reset_obs_short[COMMS_POLICY_SLICE]
-    print(comms_block)
-
     assert (comms_block == expected_comms_policy).all()
 
 def test_BlueEnterpriseWrapper_comms_policy_step(cyborg, blue_agent_short, expected_comms_policy, mission_phase):
