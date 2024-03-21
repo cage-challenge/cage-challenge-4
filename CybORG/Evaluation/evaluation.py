@@ -109,7 +109,12 @@ def run_evaluation(submission, log_path, max_eps=100, write_to_file=True, seed=N
                 break
             r.append(mean(rew.values()))
             if write_to_file:
-                a.append(actions)
+                a.append(
+                    {
+                        agent_name: cyborg.get_last_action(agent_name)
+                        for agent_name in wrapped_cyborg.agents
+                    }       
+                )
                 o.append(
                     {
                         agent_name: observations[agent_name]

@@ -15,7 +15,7 @@ Red agents have 10 possible actions that they can perform during an episode:
 | 6     | [Impact](../actions/red_actions/impact.md) | Impacts an operational service which is important to the mission. |
 | 7     | [DegradeServices](../actions/red_actions/degrade_services.md) | Degrades a service used by green in the mission. |
 | 8     | [Withdraw](../actions/red_actions/withdraw.md) | Withdraws a shell from a specific host. |
-| -     | [Sleep]() | The turn passes with no impact to the environment. |
+| -     | [Sleep](../../tutorials/03_Actions/A_Understanding_Actions/3_Sleep.md) | The turn passes with no impact to the environment. |
 
 Note: Sleep is not considered as an action for the FSM agents, and therefore has no index.
 
