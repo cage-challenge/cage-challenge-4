@@ -249,7 +249,7 @@ def test_random_reachable_ip():
     agent = agent_interface.agent
 
     mission_phase = state.mission_phase
-    sg_allowed_subnets = cyborg.environment_controller.scenario_generator._set_allowed_subnets_per_mission_phase()
+    sg_allowed_subnets = cyborg.environment_controller.scenario_generator._set_allowed_subnets_per_mission_phase()[mission_phase]
 
     action = GreenAccessService(
         agent=agent.name,
@@ -276,10 +276,23 @@ def test_random_reachable_ip():
     dest_subnet = state.hostname_subnet_map[dest_hostname]
     src_subnet = state.hostname_subnet_map[state.ip_addresses[action.ip_address]]
 
+    all_subnets = list(state.subnet_name_to_cidr.keys())
+    print(all_subnets)
+    all_subnets.remove(src_subnet)
+
     if dest_subnet != src_subnet:
-        for subnet, allowed_tuple in sg_allowed_subnets.items():
-            if allowed_tuple[mission_phase] == False:
-                assert dest_subnet != subnet
+        # for subnet, allowed_tuple in sg_allowed_subnets.items():
+        #     if allowed_tuple[mission_phase] == False:
+        #         assert dest_subnet != subnet
+        for idx in range(len(sg_allowed_subnets)):
+            s1, s2 = sg_allowed_subnets[idx]
+            if s1 is src_subnet:
+                all_subnets.remove(s2)
+            elif s2 is src_subnet:
+                all_subnets.remove(s1)
+
+        for subnet in all_subnets:
+            assert dest_subnet != subnet
 
     # host should be a server
     assert 'server' in dest_hostname
