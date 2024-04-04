@@ -141,11 +141,7 @@ class GreenAccessService(RemoteAction):
         If there are no reachable hosts, then there are no hosts that meet the green agent requirements that are available. 
         This should not be possible without red actions having taken place, therefore the action will be unsuccessful.
 
-        Routing is calculated within the RemoteAction parent class, and a network path is returned by _get_my_used_route(). 
-        If no path is possible, None type is returned. 
-        This results in the action being unsuccessful, as something in the network has been effected (by red or blue) to cause this.
-
-        If there is a route, each host on the path is checked against the following points:
+        The destination host is then checked against the following points:
 
         1. Check if the host is blocked
             - If so, add a network_connections event to the host and return an unsuccessful observation
@@ -180,70 +176,42 @@ class GreenAccessService(RemoteAction):
         if not self.available_dest_service:
             return obs
 
-        dest_host_name = state.ip_addresses[self.dest_ip]
-        self.dest_port = state.hosts[dest_host_name].get_ephemeral_port()
         
-        route = self._get_my_used_route(state)
-        if route is None:
-            self.log("No route found.")
+        from_host = state.ip_addresses[self.dest_ip]
+        from_host_obj = state.hosts[from_host]
+        self.dest_port = state.hosts[from_host].get_ephemeral_port()
+        from_subnet = state.hostname_subnet_map[from_host].value
+
+        to_host = state.ip_addresses[self.ip_address]
+        to_subnet = state.hostname_subnet_map[to_host].value
+
+        # (a) Check for firewall blocks of inbound or outbound connections to and from the to/from subnets
+        connection_failure_flag = False
+        if to_subnet in state.blocks.keys():
+            if from_subnet in state.blocks[to_subnet]:
+                connection_failure_flag = True
+        if from_subnet in state.blocks.keys():
+            if to_subnet in state.blocks[from_subnet]:
+                connection_failure_flag = True
+        
+        # If they are blocked, then make an event
+        if connection_failure_flag:
+            event = NetworkConnection(
+                local_address=state.hostname_ip_map[from_host],
+                remote_address=state.hostname_ip_map[to_host],
+                remote_port=8800)
+            from_host_obj.events.network_connections.append(event)
             return obs
 
-        for i, host_name in enumerate(route):
-            host = state.hosts[host_name]
-            host_agents = host.sessions.keys()
-
-            # (a) Blocking originates from ControlTraffic Actions (BlockTraffic, BlockTrafficZone)
-            if i != len(route)-1:
-
-                # (a.i) Individual host blocks
-                from_host = host_name
-                to_host = route[i+1]
-                
-                if to_host in state.blocks:
-                    if from_host in state.blocks[to_host]:
-                        if dest_host_name == state.hostname_ip_map[to_host]:
-                            remote_port = self.dest_port
-                        else:
-                            remote_port = 8800
-
-                        event = NetworkConnection(
-                            local_address=state.hostname_ip_map[from_host],
-                            remote_address=state.hostname_ip_map[to_host],
-                            remote_port=remote_port)
-                        host.events.network_connections.append(event)
-                        # There should be a log here, but I'm not sure how to describe the logic.
-                        return obs
-
-                # (a.ii) Subnet blocks
-                from_subnet = state.hostname_subnet_map[from_host]
-                for j in range(i+1, len(route)):
-                    to_host = route[j]
-                    to_subnet = state.hostname_subnet_map[to_host]
-
-                    if to_subnet in state.blocks and from_subnet in state.blocks[to_subnet]:
-                        event = NetworkConnection(
-                            local_address=state.hostname_ip_map[from_host],
-                            remote_address=state.hostname_ip_map[to_host],
-                            remote_port=8800)
-                        host.events.network_connections.append(event)
-                        return obs
-
-            # (b) false positive detection by Blue
-            elif state.np_random.random() < self.fp_detection_rate:
-                # add even to hosts along the path if detection occurs
-                if host_name == dest_host_name:
-                    remote_address=self.dest_ip
-                    remote_port=self.dest_port
-                else:
-                    remote_address = state.hostname_ip_map[host_name]
-                    remote_port = 8800
-                
-                event = NetworkConnection(
-                    local_address=self.ip_address,
-                    remote_address=remote_address,
-                    remote_port=remote_port
-                )
-                host.events.network_connections.append(event)
+        # (b) false positive detection by Blue
+        if state.np_random.random() < self.fp_detection_rate:
+            
+            event = NetworkConnection(
+                local_address=self.ip_address,
+                remote_address=self.dest_ip,
+                remote_port=self.dest_port
+            )
+            from_host_obj.events.network_connections.append(event)
 
         obs.set_success(True)
         return obs
