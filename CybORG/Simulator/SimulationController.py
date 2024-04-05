@@ -747,15 +747,21 @@ class SimulationController(CybORGLogger):
     def _update_agents_allowed_subnets(self):
         """This function updates the allowed_subnets of the green agents depending on the current mission phases."""
         curr_mp = self.state.mission_phase
-        mphases = self.state.scenario.allowed_subnets_per_mphase
-
-        green_mphase = []
-        for subnet, mp_val in mphases.items():
-            if mp_val[curr_mp]:
-                green_mphase.append(subnet.value)
+        mphases = self.state.scenario.allowed_subnets_per_mphase[curr_mp]
 
         for agent_name, agent in self.agent_interfaces.items():
             if "green" in agent_name:
+                green_host = self.state.sessions[agent_name][0].hostname
+                green_subnet = self.state.hostname_subnet_map[green_host]
+                green_mphase = [green_subnet]   # a subnet is always allowed to communicate within itself
+
+                for idx in range(len(mphases)):
+                    (s1, s2) = mphases[idx]
+                    if s1 == green_subnet:
+                        green_mphase.append(s2)
+                    elif s2 == green_subnet:
+                        green_mphase.append(s1)
+
                 agent.update_allowed_subnets(green_mphase)
 
     def reset_observation(self):

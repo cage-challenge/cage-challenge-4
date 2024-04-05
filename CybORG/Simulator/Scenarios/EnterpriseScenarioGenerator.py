@@ -268,26 +268,46 @@ class EnterpriseScenarioGenerator(ScenarioGenerator):
     def _set_allowed_subnets_per_mission_phase(self) -> Dict[SUBNET, tuple]:
         """This static function returns the allowed_subnets according to readme for CC4.
 
-        # (0) Pre-planning phase - all zones have min. 1 connection to the graph
-        # (1) Mission A - Only 'OP ZA' has no connections to graph
-        # (2) Mission B - Only 'OP ZB' has no connections to graph 
+        # (0) Pre-planning phase
+        # (1) Mission A
+        # (2) Mission B
 
         Returns
         -------
-        allowed_subnets : dict
-            whole static dictionary returned
+        comms_policy : Array[Array[Tuple(Subnet, Subnet)]]
+            A list of pairs of subnets that are allowed to communicate with each other during the policy iteration
         """
-        allowed_subnets = {
-            SUBNET.RESTRICTED_ZONE_A: (True, True, True),
-            SUBNET.OPERATIONAL_ZONE_A: (True, False, True),
-            SUBNET.RESTRICTED_ZONE_B: (True, True, True),
-            SUBNET.OPERATIONAL_ZONE_B: (True, True, False),
-            SUBNET.CONTRACTOR_NETWORK: (True, True, True),
-            SUBNET.PUBLIC_ACCESS_ZONE: (True, True, True),
-            SUBNET.ADMIN_NETWORK: (True, True, True),
-            SUBNET.OFFICE_NETWORK: (True, True, True)
-        }
-        return allowed_subnets
+
+        policy_1 = [
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.CONTRACTOR_NETWORK), (SUBNET.ADMIN_NETWORK, SUBNET.CONTRACTOR_NETWORK), (SUBNET.OFFICE_NETWORK, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.RESTRICTED_ZONE_A), (SUBNET.ADMIN_NETWORK, SUBNET.RESTRICTED_ZONE_A), (SUBNET.OFFICE_NETWORK, SUBNET.RESTRICTED_ZONE_A),
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.RESTRICTED_ZONE_B), (SUBNET.ADMIN_NETWORK, SUBNET.RESTRICTED_ZONE_B), (SUBNET.OFFICE_NETWORK, SUBNET.RESTRICTED_ZONE_B),
+            (SUBNET.RESTRICTED_ZONE_A, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.OPERATIONAL_ZONE_A, SUBNET.RESTRICTED_ZONE_A),
+            (SUBNET.RESTRICTED_ZONE_B, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.RESTRICTED_ZONE_B, SUBNET.RESTRICTED_ZONE_A),
+            (SUBNET.OPERATIONAL_ZONE_B, SUBNET.RESTRICTED_ZONE_B)
+        ]
+
+        policy_2 = [
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.CONTRACTOR_NETWORK), (SUBNET.ADMIN_NETWORK, SUBNET.CONTRACTOR_NETWORK), (SUBNET.OFFICE_NETWORK, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.RESTRICTED_ZONE_A), (SUBNET.ADMIN_NETWORK, SUBNET.RESTRICTED_ZONE_A), (SUBNET.OFFICE_NETWORK, SUBNET.RESTRICTED_ZONE_A),
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.RESTRICTED_ZONE_B), (SUBNET.ADMIN_NETWORK, SUBNET.RESTRICTED_ZONE_B), (SUBNET.OFFICE_NETWORK, SUBNET.RESTRICTED_ZONE_B),
+            (SUBNET.RESTRICTED_ZONE_B, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.OPERATIONAL_ZONE_B, SUBNET.RESTRICTED_ZONE_B)
+        ]
+
+        policy_3 = [
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.CONTRACTOR_NETWORK), (SUBNET.ADMIN_NETWORK, SUBNET.CONTRACTOR_NETWORK), (SUBNET.OFFICE_NETWORK, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.RESTRICTED_ZONE_A), (SUBNET.ADMIN_NETWORK, SUBNET.RESTRICTED_ZONE_A), (SUBNET.OFFICE_NETWORK, SUBNET.RESTRICTED_ZONE_A),
+            (SUBNET.PUBLIC_ACCESS_ZONE, SUBNET.RESTRICTED_ZONE_B), (SUBNET.ADMIN_NETWORK, SUBNET.RESTRICTED_ZONE_B), (SUBNET.OFFICE_NETWORK, SUBNET.RESTRICTED_ZONE_B),
+            (SUBNET.RESTRICTED_ZONE_A, SUBNET.CONTRACTOR_NETWORK),
+            (SUBNET.OPERATIONAL_ZONE_A, SUBNET.RESTRICTED_ZONE_A)
+        ]
+
+        comms_policy = [policy_1, policy_2, policy_3]
+
+        return comms_policy
 
     def _generate_hosts(self, subnets: Dict[str, Subnet]) -> Dict[str, Host]:
         """

@@ -12,6 +12,15 @@ from CybORG.Simulator.Actions.ConcreteActions.ControlTraffic import BlockTraffic
 from CybORG.Shared.BlueRewardMachine import BlueRewardMachine
 from CybORG.Simulator.Service import Service
 
+ALL_SUBNETS = [
+    'admin_network_subnet',
+    'contractor_network_subnet',
+    'office_network_subnet',
+    'operational_zone_a_subnet',
+    'operational_zone_b_subnet',
+    'public_access_zone_subnet',
+    'restricted_zone_a_subnet',
+    'restricted_zone_b_subnet']
 
 def test_Score_Red_Impact():
     esg = EnterpriseScenarioGenerator(
@@ -52,15 +61,7 @@ def test_Score_Red_Impact():
         )
         assert reward == expected_rewards[mp]
         
-@pytest.mark.parametrize('green_subnet', 
-    ['admin_network_subnet',
-    'contractor_network_subnet',
-    'office_network_subnet',
-    'operational_zone_a_subnet',
-    'operational_zone_b_subnet',
-    'public_access_zone_subnet',
-    'restricted_zone_a_subnet',
-    'restricted_zone_b_subnet'])
+@pytest.mark.parametrize('green_subnet', ALL_SUBNETS)
 @pytest.mark.parametrize('mission_phase', [0,1,2])
 def test_Score_GreenLocalWork(green_subnet, mission_phase):
     # Set up CybORG with EnterpriseScenarioGenerator (cc4)
@@ -98,22 +99,14 @@ def test_Score_GreenLocalWork(green_subnet, mission_phase):
     # check that the negative reward from local work failing is correct
     assert observed_reward == intended_reward
 
-@pytest.mark.parametrize('green_subnet', 
-    ['admin_network_subnet',
-    'contractor_network_subnet',
-    'office_network_subnet',
-    'operational_zone_a_subnet',
-    'operational_zone_b_subnet',
-    'public_access_zone_subnet',
-    'restricted_zone_a_subnet',
-    'restricted_zone_b_subnet'])
+@pytest.mark.parametrize('green_subnet', ALL_SUBNETS)
 @pytest.mark.parametrize('mission_phase', [0,1,2])
 def test_Score_GreenAccessService(green_subnet, mission_phase):
     # Set up CybORG with EnterpriseScenarioGenerator (cc4)
     esg = EnterpriseScenarioGenerator(
         blue_agent_class=SleepAgent, green_agent_class=SleepAgent, red_agent_class=SleepAgent
     )
-    # seed 100 causes BlockTrafficZone not to work for blue_agent_4, due to action_space not having session 0 ???
+
     cyborg = CybORG(scenario_generator=esg, seed=3)
     env = cyborg.environment_controller
     env.reset()
@@ -144,28 +137,16 @@ def test_Score_GreenAccessService(green_subnet, mission_phase):
     step_actions = {}
     step_actions[green_agent_name] = green_action
 
-    # Get a list of blue agents and their subnets
-    blue_agents_to_subnet = {}
-    for hostname, host in env.state.hosts.items():
-        for agent, sess in host.sessions.items():
-            if len(sess) > 0 and 'blue' in agent:
-                if not agent in blue_agents_to_subnet.keys():
-                    blue_agents_to_subnet[agent] = env.state.hostname_subnet_map[hostname]
+    # Get a Blue agent to block from green_subnet to all other subnets
+    for sub_idx in range(len(ALL_SUBNETS)):
+        action = BlockTrafficZone(session=0, agent="blue_agent_0", to_subnet=green_subnet, from_subnet=ALL_SUBNETS[sub_idx]) # to_subnet and from_subnet could be either way as call/response required
+        results = cyborg.step(agent="blue_agent_0", action=action)
+        assert results.observation['success'] == True
 
-    # Add BlockTrafficZone actions to step actions
-    for agent, subnet in blue_agents_to_subnet.items():
-        action = BlockTrafficZone(session=0, agent=agent, to_subnet=subnet.value, from_subnet=green_subnet)
-        step_actions[agent] = action
+    print(cyborg.environment_controller.state.blocks)
 
-    # Do the parallel step
     env.state.mission_phase = mission_phase
-    obs, reward, dict3, dict4 = cyborg.parallel_step(actions=step_actions)
-
-    # Check all the BlockTrafficZone actions were successful
-    block_obs = {agent: obs for agent, obs in obs.items() if 'blue' in agent}
-    for block_obs in block_obs.values():
-        assert 'BlockTrafficZone' in str(block_obs['action']) 
-        assert block_obs['success'] == True
+    obs, reward, _, _ = cyborg.parallel_step(actions={green_agent_name: green_action})
 
     # Check that the GreenAccessService failed
     assert 'GreenAccessService' in str(obs[green_agent_name]['action'])

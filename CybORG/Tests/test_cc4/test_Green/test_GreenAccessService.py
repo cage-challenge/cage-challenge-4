@@ -57,6 +57,7 @@ def test_execute_no_host_events():
 
     assert True
 
+@pytest.mark.skip("Links are never removed during episode, so test not necessary")
 def test_obs_fail_on_no_route():
     """Tests that when a route is not possible, the observation is unsuccessful.
     
@@ -109,6 +110,7 @@ def set_action_attributes(state:State, action: GreenAccessService, target_hostna
     service = rand_choice(list(state.hosts[target_hostname].services.keys()))
     action.dest_port = state.hosts[target_hostname].services[service].process
 
+@pytest.mark.skip("Green blocking changed to only functions on (source, destination) blocks, not on routing inbetween. New functionality tested in test_BlueRewardMachine.")
 @pytest.mark.parametrize('block_type', ['host', 'subnet'])
 def test_execute_host_events_blocked(mocker, block_type):
     """Test that, when locations along the route are blocked, the appropriate network_connections events are added."""
@@ -249,7 +251,7 @@ def test_random_reachable_ip():
     agent = agent_interface.agent
 
     mission_phase = state.mission_phase
-    sg_allowed_subnets = cyborg.environment_controller.scenario_generator._set_allowed_subnets_per_mission_phase()
+    sg_allowed_subnets = cyborg.environment_controller.scenario_generator._set_allowed_subnets_per_mission_phase()[mission_phase]
 
     action = GreenAccessService(
         agent=agent.name,
@@ -276,10 +278,19 @@ def test_random_reachable_ip():
     dest_subnet = state.hostname_subnet_map[dest_hostname]
     src_subnet = state.hostname_subnet_map[state.ip_addresses[action.ip_address]]
 
+    all_subnets = list(state.subnet_name_to_cidr.keys())
+    all_subnets.remove(src_subnet)
+
     if dest_subnet != src_subnet:
-        for subnet, allowed_tuple in sg_allowed_subnets.items():
-            if allowed_tuple[mission_phase] == False:
-                assert dest_subnet != subnet
+        for idx in range(len(sg_allowed_subnets)):
+            s1, s2 = sg_allowed_subnets[idx]
+            if s1 is src_subnet:
+                all_subnets.remove(s2)
+            elif s2 is src_subnet:
+                all_subnets.remove(s1)
+
+        for subnet in all_subnets:
+            assert dest_subnet != subnet
 
     # host should be a server
     assert 'server' in dest_hostname

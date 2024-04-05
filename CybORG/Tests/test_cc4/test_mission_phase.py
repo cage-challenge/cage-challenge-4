@@ -118,7 +118,7 @@ def test_mission_phase_change_points(step, expected_phase, step_size):
     obs_dict = run_cc4_steps(steps=total_steps)
     assert obs_dict[step][0] == expected_phase
 
-
+@pytest.mark.skip("No longer a valid test for allowed subnets - 02/04/24")
 @pytest.mark.parametrize("phase", [i for i in range(3)])
 def test_phase_subnet_matching(phase):
     obs_dict = run_cc4_steps(steps=9)
