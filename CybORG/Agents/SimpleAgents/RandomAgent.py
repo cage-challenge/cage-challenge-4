@@ -1,7 +1,7 @@
 from inspect import signature
 from typing import Union
 
-from gym import Space
+from gymnasium import Space
 from gym.vector.utils import spaces
 
 from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
