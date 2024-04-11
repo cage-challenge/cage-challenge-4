@@ -48,9 +48,7 @@ class Monitor(Action):
         """
         obs = Observation(True)
         session: VelociraptorServer = state.sessions[self.agent][self.session]
-        blue_sessions = [child for child in session.children.values()] + [session]
-        
-        for child in blue_sessions:
+        for child in session.children.values():
             host = state.hosts[child.hostname]
             network_connections = host.events.network_connections
             if len(network_connections) > 0:
