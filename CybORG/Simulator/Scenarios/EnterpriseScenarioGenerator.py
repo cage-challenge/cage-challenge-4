@@ -734,7 +734,7 @@ class EnterpriseScenarioGenerator(ScenarioGenerator):
                     agent=None
                 )
                 agent_type = None
-                default_actions = (Monitor, {'session': 0, 'agent': agent_name})
+                default_actions = (Sleep, {})
                 if self.green_agent_class:
                     if self.green_agent_class == EnterpriseGreenAgent:
                         host_ip = hosts[hostname].interfaces[0].ip_address
