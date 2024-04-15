@@ -242,6 +242,8 @@ The `evaluation.py` file is designed to provide a standardised evaluation for an
 
 If running locally, information about the agent's actions, observations, mean reward, and standard deviation will be outputted as text files after this file completes its run. Details about how do this is in the README.md file within the Evaluation folder. If running on Codalabs, only the mean reward will be extracted and used to update the leaderboard. 
 
+**Disclaimer**: We reserve the right to remove any agent from the leaderboard. We will enact this right if we believe participants did not act within the spirit of the challenge by exploiting any mechanism to provide them with an unfair advantage over other participants. Please reach out to our email ([cage.aco.challenge@gmail.com](mailto:cage.aco.challenge@gmail.com)) if you're unsure about any changes you have implemented and we will make a judgement call on a case-by-case basis
+
 ## Important dates
 
 - **20 Feb 2024:** Challenge 4 released. Development phase begins. During the development phase, we will be debugging any unexpectant issues that may be found by the participants. Please ensure that you watch the repo so that you're notified if any changes are required.
