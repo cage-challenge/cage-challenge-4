@@ -36,4 +36,7 @@ tensorboardX==2.6.2.2
 pygame==2.5.2
 pygame-gui==0.6.9
 
+#Graph Neural Networks
+torch_geometric==2.5.0
+
 rich
