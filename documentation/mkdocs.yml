@@ -198,6 +198,8 @@ plugins:
             separate_signature: true
             show_signature_annotations: true
             show_if_no_docstring: false
-
+  - search:
+      lang: ['en']  # Specify languages for stemming and stopwords.
+      separator: '[\s\-]+'  # Customize the word separator.
 
 copyright: Copyright &copy; 2023 TTCP CAGE
