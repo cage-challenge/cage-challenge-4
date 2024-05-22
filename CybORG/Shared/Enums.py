@@ -25,7 +25,7 @@ class TernaryEnum(enum.Enum):
         return isinstance(other, TernaryEnum) and self.value == other.value
 
     def __bool__(self):
-        return self.value == TernaryEnum.TRUE
+        return self == TernaryEnum.TRUE
 
 
 class OperatingSystemPatch(enum.Enum):
