@@ -57,5 +57,8 @@ class RewardCalculator(CybORGLogger):
 
 
 class EmptyRewardCalculator(RewardCalculator):
+    def calculate_simulation_reward(self, env_controller):
+        return self.calculate_reward(None, None, None, None, None)
+
     def calculate_reward(self, current_state: dict, action: Action, agent_observations: dict, done: bool, state: object):
         return 0.

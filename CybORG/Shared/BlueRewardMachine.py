@@ -66,6 +66,13 @@ class BlueRewardMachine(RewardCalculator):
         
         return phase_rewards[cur_mission_phase]
 
+    def calculate_simulation_reward(self, env_controller):
+        # Current state is not used by the calculate_reward function
+        current_state = {}
+        action = env_controller.action
+        agent_observations = env_controller.observation
+        done = env_controller.done
+        return self.calculate_reward(current_state, action, agent_observations, done, env_controller.state)
 
     def calculate_reward(self, current_state: dict, action_dict: dict, agent_observations: dict, done: bool, state: State):
         """Calculate the cumulative reward based on the phase mapping.
