@@ -3,7 +3,8 @@ from gymnasium import Space, spaces
 
 from CybORG import CybORG
 from CybORG.Agents.Wrappers import BaseWrapper
-from CybORG.Simulator.Actions import Action, Sleep
+from CybORG.Simulator.Actions import Action, Sleep, Analyse, Monitor, Remove, Restore, DeployDecoy
+from CybORG.Simulator.Actions.ConcreteActions.ControlTraffic import AllowTrafficZone, BlockTrafficZone
 from CybORG.Simulator.Scenarios.EnterpriseScenarioGenerator import (
     EnterpriseScenarioGenerator,
 )
@@ -11,6 +12,7 @@ from CybORG.Simulator.Scenarios.EnterpriseScenarioGenerator import (
 import functools
 import numpy as np
 from typing import Any
+from copy import deepcopy
 
 SUBNET_USER_FORMAT = "{subnet}_user_host_{host}"
 SUBNET_SERVER_FORMAT = "{subnet}_server_host_{host}"
@@ -316,6 +318,18 @@ class BlueFixedActionWrapper(BaseWrapper):
         def pad_actions(size, agent_name, key, value):
             self._action_space[agent_name][key].extend([value] * size)
 
+        def get_first_index(s, agent_name, action_space):
+            labels = action_space[agent_name]['labels']
+            for i, label in enumerate(labels):
+                if s in label:
+                    return i
+            return -1
+
+        def copy_actions(old_space, new_space, small_start, small_end, large_start):
+            for key in ['actions', 'labels', 'mask']:
+                for i in range(small_end-small_start):
+                    new_space[key][large_start+i] = old_space[key][small_start+i]
+
         for agent_name in self.agents:
             space_size = len(self._action_space[agent_name]["actions"])
             pad_size = self._max_act_space_size - space_size
@@ -326,6 +340,39 @@ class BlueFixedActionWrapper(BaseWrapper):
             pad_actions(pad_size, agent_name, "actions", Sleep())
             pad_actions(pad_size, agent_name, "labels", "[Padding] Sleep")
             pad_actions(pad_size, agent_name, "mask", False)
+
+        # We've extended the action space to the correct size, but now we need to shuffle the padding around so action spaces align
+        # across all agents.
+        small_indicies = []
+        large_indicies = []
+        for action_class in [Analyse, Monitor, Remove, Restore, AllowTrafficZone, AllowTrafficZone, BlockTrafficZone, DeployDecoy]:
+            small_indicies.append(get_first_index(action_class.__name__, 'blue_agent_0', self._action_space))
+            large_indicies.append(get_first_index(action_class.__name__, 'blue_agent_4', self._action_space))
+
+        # Hacky solution since Sleep is used for padding
+        small_indicies[4] = small_indicies[4] - 1
+        large_indicies[4] = large_indicies[4] - 1
+
+        # Get a stop index
+        small_indicies.append(get_first_index('Padding', 'blue_agent_0', self._action_space))
+
+        for agent_name in self.possible_agents:
+            space_size = len(self._action_space[agent_name]["actions"])
+            pad_size = self._max_act_space_size - space_size
+
+            # if pad_size == 0:
+            if agent_name == 'blue_agent_4':
+                continue
+
+            # Setup new action space that is all padding
+            old_space = deepcopy(self._action_space[agent_name])
+            self._action_space[agent_name]["actions"] = [Sleep()] * self._max_act_space_size
+            self._action_space[agent_name]["labels"] = ["[Padding] Sleep"] * self._max_act_space_size
+            self._action_space[agent_name]["mask"] = [False] * self._max_act_space_size
+
+            # Copy over the previous actions into the correct places
+            for i in range(len(large_indicies)):
+                copy_actions(old_space, self._action_space[agent_name], small_indicies[i], small_indicies[i+1], large_indicies[i])
 
     def _host_sanity_check(self) -> None:
         """Ensure hosts aren't missing from the wrapper's host list for each agent."""
