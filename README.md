@@ -2,6 +2,20 @@
 ![TTCP-Logo](/documentation/docs/assets/TTCP-Logo-small.png)
 ![Cage-Logo](/documentation/docs/assets/CAGE-Logo-small.png)
 
+## Published Results
+The results of this challenge were published at the 39th Annual AAAI Conference on Artificial Intelligence [Exploring the Efficacy of Multi-Agent Reinforcement Learning for Autonomous Cyber Defence: A CAGE Challenge 4 Perspective](https://ojs.aaai.org/index.php/AAAI/article/view/35158) which can be referenced as:
+```
+@inproceedings{kiely2025exploring,
+  title={Exploring the Efficacy of Multi-Agent Reinforcement Learning for Autonomous Cyber Defence: A CAGE Challenge 4 Perspective},
+  author={Kiely, Mitchell and Ahiskali, Metin and Borde, Etienne and Bowman, Benjamin and Bowman, David and van Bruggen, Dirk and Cowan, KC and Dasgupta, Prithviraj and Devendorf, Erich and Edwards, Ben and others},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={39},
+  number={28},
+  pages={28907--28913},
+  year={2025}
+}
+```
+
 ## Introduction
 
 The TTCP CAGE Challenges are a series of public challenges instigated to foster the development of autonomous cyber defensive agents. 
@@ -196,44 +210,7 @@ As part of your submission, we request that you share a description of the metho
 
 Any queries regarding the challenge can be submitted via email to [cage.aco.challenge@gmail.com](mailto:cage.aco.challenge@gmail.com).
 
-We also invite teams to submit full papers on their work on this CAGE challenge or using the CybORG environment to IJCAI, AAAI, ICML or any other venue of their choice. 
-
-Please cite the challenge announcement as follows to reference the challenge:
-
-```
-@misc{cage_challenge_4_announcement,
-  author = {TTCP CAGE Working Group},
-  Title = {TTCP CAGE Challenge 4},
-  Publisher = {GitHub}, 
-  Howpublished = {\url{https://github.com/cage-challenge/cage-challenge-4}},
-  Year = {2023}
-}
-```
-
-In addition, authors may reference the following paper that describes CybORG:
-
-```
-@PROCEEDINGS{cyborg_acd_2021,
-  author = {Maxwell Standen, Martin Lucas, David Bowman, Toby J\. Richer, Junae Kim and Damian Marriott},
-  Title = {CybORG: A Gym for the Development of Autonomous Cyber Agents},
-  booktitle = {IJCAI-21 1st International Workshop on Adaptive Cyber Defense.} 
-  Publisher = {arXiv},
-  Year = {2021}
-}
-```
-
-The challenge software can be referenced as:
-
-```
-@misc{cage_cyborg_2023,
-  Title = {Cyber Operations Research Gym},
-  Note = {Created by Maxwell Standen, David Bowman, Olivia Naish, Ben Edwards, James Drane, Claire Owens, KC Cowan, Wayne Gould, Mitchell Kiely, Son Hoang, Toby Richer, Martin Lucas, Richard Van Tassel, Phillip Vu, Natalie Konschnik, Joshua Collyer, Calum Fairchild, Thomas Harding},
-  Publisher = {GitHub},
-  Howpublished = {\url{https://github.com/cage-challenge/CybORG}},
-  Year = {2022}
-}
-
-```
+We also invite teams to submit full papers on their work on this CAGE challenge! 
 
 ## Evaluation
 A leaderboard for submissions will be maintained on [Codalabs](https://codalab.lisn.upsaclay.fr/competitions/17672) throughout the challenge's time frame.
