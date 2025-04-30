@@ -460,3 +460,23 @@ def test_BlueEnterpriseWrapper_message_step(blue_agent, cyborg):
     expected_message = np.concatenate(messages)
 
     assert (message_block == expected_message).all()
+
+def test_BlueEnterpriseWrapper_action_padding(cyborg):
+    env_pad = BlueEnterpriseWrapper(cyborg.env, pad_spaces=True)
+    env_no_pad = cyborg
+
+    blue_agents = [f'blue_agent_{i}' for i in range(5)]
+    unpadded_action_spaces = set([env_no_pad.action_space(a).n for a in blue_agents])
+    padded_action_spaces = set([env_pad.action_space(a).n for a in blue_agents])
+
+    assert len(unpadded_action_spaces) == 2
+    assert len(padded_action_spaces) == 1
+
+    padded_actions = {agent:env_pad._action_space[agent]['actions'] for agent in blue_agents}
+
+    for i in range(len(env_pad._action_space['blue_agent_4']['actions'])):
+        action_0 = padded_actions['blue_agent_0'][i]
+        action_4 = padded_actions['blue_agent_4'][i]
+        # Ensure action types line up across small and large spaces
+        if type(action_0) is not Sleep and type(action_4) is not Sleep:
+            assert type(action_0) is type(action_4)
