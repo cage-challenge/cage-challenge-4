@@ -238,6 +238,7 @@ class SimulationController(CybORGLogger):
             if action is None:
                 last_obs = self.get_last_observation(agent_name)
                 action = agent_object.get_action(last_obs)
+                actions[agent_name] = action
             if not skip_valid_action_check:
                 action = self.replace_action_if_invalid(action, agent_object)
             # Adds a new item to a particular action set. Action sets are indexed by agent_name
