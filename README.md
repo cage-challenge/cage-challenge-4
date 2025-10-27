@@ -3,7 +3,7 @@
 ![Cage-Logo](/documentation/docs/assets/CAGE-Logo-small.png)
 
 ## Published Results
-The results of this challenge were published at the 39th Annual AAAI Conference on Artificial Intelligence [Exploring the Efficacy of Multi-Agent Reinforcement Learning for Autonomous Cyber Defence: A CAGE Challenge 4 Perspective](https://ojs.aaai.org/index.php/AAAI/article/view/35158) which can be referenced as:
+The results of this challenge were published at the 39th Annual AAAI Conference on Artificial Intelligence [Exploring the Efficacy of Multi-Agent Reinforcement Learning for Autonomous Cyber Defence: A CAGE Challenge 4 Perspective](https://ojs.aaai.org/index.php/AAAI/article/view/35158). Please use one or both of the following citations when citing this challenge.
 ```
 @inproceedings{kiely2025exploring,
   title={Exploring the Efficacy of Multi-Agent Reinforcement Learning for Autonomous Cyber Defence: A CAGE Challenge 4 Perspective},
@@ -13,6 +13,19 @@ The results of this challenge were published at the 39th Annual AAAI Conference 
   number={28},
   pages={28907--28913},
   year={2025}
+}
+```
+and [CAGE challenge 4: A scalable multi-agent reinforcement learning gym for autonomous cyber defence](https://onlinelibrary.wiley.com/doi/full/10.1002/aaai.70021)
+```
+@article{kiely2025cage,
+  title={CAGE challenge 4: A scalable multi-agent reinforcement learning gym for autonomous cyber defence},
+  author={Kiely, Mitchell and Ahiskali, Metin and Borde, Etienne and Bowman, Benjamin and Bowman, David and Van Bruggen, Dirk and Cowan, KC and Dasgupta, Prithviraj and Devendorf, Erich and Edwards, Ben and others},
+  journal={AI Magazine},
+  volume={46},
+  number={3},
+  pages={e70021},
+  year={2025},
+  publisher={Wiley Online Library}
 }
 ```
 
