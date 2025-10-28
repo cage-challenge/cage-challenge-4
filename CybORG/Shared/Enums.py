@@ -24,6 +24,9 @@ class TernaryEnum(enum.Enum):
             other = TernaryEnum.parse_bool(other)
         return isinstance(other, TernaryEnum) and self.value == other.value
 
+    def __bool__(self):
+        return self == TernaryEnum.TRUE
+
 
 class OperatingSystemPatch(enum.Enum):
     UNKNOWN = enum.auto()
